@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Drug Discovery Project | Drug Discovery</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Drug Discovery Project" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A DAT255 project based on the paper “Investigating deep neural networks hyper-parameters and comparison of performance to shallow methods for modeling bioactivity data” ." />
+<meta property="og:description" content="A DAT255 project based on the paper “Investigating deep neural networks hyper-parameters and comparison of performance to shallow methods for modeling bioactivity data” ." />
+<link rel="canonical" href="https://drug-discovery.github.io/Drug-Discovery-blog/2021/04/24/4.0-RF_model_with_activations.html" />
+<meta property="og:url" content="https://drug-discovery.github.io/Drug-Discovery-blog/2021/04/24/4.0-RF_model_with_activations.html" />
+<meta property="og:site_name" content="Drug Discovery" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-04-24T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://drug-discovery.github.io/Drug-Discovery-blog/2021/04/24/4.0-RF_model_with_activations.html","@type":"BlogPosting","headline":"Drug Discovery Project","dateModified":"2021-04-24T00:00:00-05:00","datePublished":"2021-04-24T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://drug-discovery.github.io/Drug-Discovery-blog/2021/04/24/4.0-RF_model_with_activations.html"},"description":"A DAT255 project based on the paper “Investigating deep neural networks hyper-parameters and comparison of performance to shallow methods for modeling bioactivity data” .","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/Drug-Discovery-blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://drug-discovery.github.io/Drug-Discovery-blog/feed.xml" title="Drug Discovery" /><link rel="shortcut icon" type="image/x-icon" href="/Drug-Discovery-blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/Drug-Discovery-blog/">Drug Discovery</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/Drug-Discovery-blog/search/">Search</a><a class="page-link" href="/Drug-Discovery-blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Drug Discovery Project</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-04-24T00:00:00-05:00" itemprop="datePublished">
+        Apr 24, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      9 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/Drug-Discovery/Drug-Discovery-blog/tree/master/_notebooks/2021-04-24-4.0-RF_model_with_activations.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/Drug-Discovery-blog/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/Drug-Discovery/Drug-Discovery-blog/master?filepath=_notebooks%2F2021-04-24-4.0-RF_model_with_activations.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/Drug-Discovery-blog/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/Drug-Discovery/Drug-Discovery-blog/blob/master/_notebooks/2021-04-24-4.0-RF_model_with_activations.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/Drug-Discovery-blog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-04-24-4.0-RF_model_with_activations.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="DATASETS:">DATASETS:<a class="anchor-link" href="#DATASETS:"> </a></h2><p>(a) Carbonic Anhydrase II (ChEMBL205), a protein lyase,<br />
+(b) Cyclin-dependent kinase 2 (CHEMBL301), a protein kinase,<br />
+(c) ether-a-go-go-related gene potassium channel 1 (HERG) (CHEMBL240), a voltage-gated ion channel,<br />
+(d) Dopamine D4 receptor (CHEMBL219), a monoamine GPCR,<br />
+(e) Coagulation factor X (CHEMBL244), a serine protease,<br />
+(f) Cannabinoid CB1 receptor (CHEMBL218), a lipid-like GPCR and<br />
+(g) Cytochrome P450 19A1 (CHEMBL1978), a cytochrome P450.<br />
+The activity classes were selected based on data availability and as representatives of therapeutically important target classes or as anti-targets.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">top_mcc_scores</span> <span class="o">=</span> <span class="p">{</span>
+    
+    <span class="s1">&#39;CHEMBL205&#39;</span><span class="p">:</span> <span class="mf">0.862</span><span class="p">,</span>
+    <span class="s1">&#39;CHEMBL301&#39;</span><span class="p">:</span> <span class="mf">0.926</span><span class="p">,</span>
+    <span class="s1">&#39;CHEMBL240&#39;</span><span class="p">:</span> <span class="mf">0.884</span><span class="p">,</span>
+    <span class="s1">&#39;CHEMBL219&#39;</span><span class="p">:</span> <span class="mf">0.887</span><span class="p">,</span>
+    <span class="s1">&#39;CHEMBL244&#39;</span><span class="p">:</span> <span class="mf">0.983</span><span class="p">,</span>
+    <span class="s1">&#39;CHEMBL218&#39;</span><span class="p">:</span> <span class="mf">0.941</span><span class="p">,</span>
+    <span class="s1">&#39;CHEMBL1978&#39;</span><span class="p">:</span> <span class="mf">0.904</span><span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;../dataset/13321_2017_226_MOESM1_ESM/&#39;</span><span class="p">)</span>
+<span class="c1">#df = pd.read_csv(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL205_cl.csv&#39;, index_col=0)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">iterdir</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/RdkitDescriptors.py&#39;),
+ PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL205_cl_ecfp_1024.csv&#39;),
+ PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL218_cl.csv&#39;),
+ PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL205_cl.csv&#39;),
+ PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL1978_cl.csv&#39;),
+ PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL244_cl.csv&#39;),
+ PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL240_cl.csv&#39;),
+ PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL301_cl.csv&#39;),
+ PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL219_cl.csv&#39;),
+ PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/chembl205-data-with-ecfp-activations.csv&#39;),
+ PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/.ipynb_checkpoints&#39;),
+ PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/mol_images&#39;),
+ PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL218_cl_ecfp_1024.csv&#39;)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Run-the-functions-on-a-file-from-dataset-and-store-the-results">Run the functions on a file from dataset and store the results<a class="anchor-link" href="#Run-the-functions-on-a-file-from-dataset-and-store-the-results"> </a></h1>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dataset</span><span class="o">=</span><span class="s1">&#39;chembl205&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="o">/</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dataset</span><span class="si">}</span><span class="s1">-data-with-ecfp-activations.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CID</th>
+      <th>SMILES</th>
+      <th>Activity</th>
+      <th>ECFP4_1</th>
+      <th>ECFP4_2</th>
+      <th>ECFP4_3</th>
+      <th>ECFP4_4</th>
+      <th>ECFP4_5</th>
+      <th>ECFP4_6</th>
+      <th>ECFP4_7</th>
+      <th>...</th>
+      <th>act_502</th>
+      <th>act_503</th>
+      <th>act_504</th>
+      <th>act_505</th>
+      <th>act_506</th>
+      <th>act_507</th>
+      <th>act_508</th>
+      <th>act_509</th>
+      <th>act_510</th>
+      <th>act_511</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>CHEMBL188002</td>
+      <td>S(=O)(=O)(N)c1cc(N/C(/S)=N\c2cc(C(=O)[O-])c(cc...</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>-20.266380</td>
+      <td>-58.616051</td>
+      <td>-36.874432</td>
+      <td>-84.006630</td>
+      <td>-28.130043</td>
+      <td>-14.237524</td>
+      <td>-30.243919</td>
+      <td>-89.924866</td>
+      <td>-25.477444</td>
+      <td>-13.185804</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>CHEMBL364127</td>
+      <td>Clc1ccc(cc1)C(=O)NC1Cc2cc(S(=O)(=O)N)ccc2C1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>-27.719458</td>
+      <td>-79.247879</td>
+      <td>-71.388512</td>
+      <td>-117.074829</td>
+      <td>-87.031128</td>
+      <td>-25.362850</td>
+      <td>-91.691391</td>
+      <td>-97.514877</td>
+      <td>-159.834167</td>
+      <td>37.859943</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>CHEMBL1683469</td>
+      <td>S(=O)(=O)(N)c1ccc(cc1)CNS(=O)(=O)CC12CCC(CC1=O...</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>-27.371447</td>
+      <td>-91.037331</td>
+      <td>-82.402603</td>
+      <td>-140.058167</td>
+      <td>-110.499306</td>
+      <td>-35.576706</td>
+      <td>-118.137932</td>
+      <td>-114.797058</td>
+      <td>-210.545105</td>
+      <td>58.341396</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>CHEMBL52564</td>
+      <td>Oc1ccccc1\C=C\C(=O)[O-]</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>-12.962411</td>
+      <td>-65.378036</td>
+      <td>-52.445572</td>
+      <td>-105.202003</td>
+      <td>-54.042187</td>
+      <td>-23.038553</td>
+      <td>-45.937416</td>
+      <td>-107.758331</td>
+      <td>-74.264862</td>
+      <td>15.236348</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>CHEMBL21427</td>
+      <td>OB(O)c1ccc(OC)cc1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>-14.881062</td>
+      <td>-61.484863</td>
+      <td>-52.275417</td>
+      <td>-100.329498</td>
+      <td>-55.440769</td>
+      <td>-24.665730</td>
+      <td>-48.966393</td>
+      <td>-98.103355</td>
+      <td>-83.055305</td>
+      <td>20.628500</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 1541 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Train-test-split">Train test split<a class="anchor-link" href="#Train-test-split"> </a></h1>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">KFold</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">is_valid</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>False    13455
+True      4486
+Name: is_valid, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">is_valid</span><span class="o">==</span><span class="kc">False</span><span class="p">]</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">is_valid</span><span class="o">==</span><span class="kc">True</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 13455 entries, 1 to 17940
+Columns: 1541 entries, CID to act_511
+dtypes: bool(1), float64(512), int64(1025), object(3)
+memory usage: 158.2+ MB
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;CID&quot;</span><span class="p">,</span> <span class="s2">&quot;SMILES&quot;</span><span class="p">,</span> <span class="s2">&quot;Activity&quot;</span><span class="p">,</span> <span class="s2">&quot;Image&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">train</span><span class="p">[</span><span class="s2">&quot;Activity&quot;</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;CID&quot;</span><span class="p">,</span> <span class="s2">&quot;SMILES&quot;</span><span class="p">,</span> <span class="s2">&quot;Activity&quot;</span><span class="p">,</span> <span class="s2">&quot;Image&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">test</span><span class="p">[</span><span class="s2">&quot;Activity&quot;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y_test</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>4486</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y_train</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="n">X_train</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 10764 entries, 1 to 17938
+Columns: 1537 entries, ECFP4_1 to act_511
+dtypes: bool(1), float64(512), int64(1024)
+memory usage: 126.2 MB
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(10764, None)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Random-Forest">Random Forest<a class="anchor-link" href="#Random-Forest"> </a></h1>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">auc</span><span class="p">,</span><span class="n">roc_auc_score</span><span class="p">,</span><span class="n">recall_score</span><span class="p">,</span><span class="n">precision_score</span><span class="p">,</span><span class="n">f1_score</span>
+<span class="kn">from</span>  <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">matthews_corrcoef</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">train_rf</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;gini&#39;</span><span class="p">,</span> <span class="n">max_features</span><span class="o">=</span><span class="s1">&#39;log2&#39;</span><span class="p">):</span>
+
+    
+    <span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">n_estimators</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="n">criterion</span><span class="p">,</span> <span class="n">min_samples_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_features</span><span class="o">=</span><span class="n">max_features</span><span class="p">,</span> 
+                               <span class="n">max_leaf_nodes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">bootstrap</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">oob_score</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">69</span><span class="p">)</span>
+    
+    <span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
+    <span class="n">y_pred</span><span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">y_pred_prob</span><span class="o">=</span><span class="n">rf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    
+    <span class="n">temp</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_pred_prob</span><span class="p">)):</span>
+        <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_pred_prob</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">auc</span><span class="o">=</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_test</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">temp</span><span class="p">))</span>
+    <span class="n">acc2</span><span class="o">=</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">mcc</span><span class="o">=</span><span class="n">matthews_corrcoef</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">Recall</span><span class="o">=</span><span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span><span class="n">pos_label</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">Precision</span><span class="o">=</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span><span class="n">pos_label</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">F1_score</span><span class="o">=</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span><span class="n">pos_label</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">auc</span><span class="p">,</span><span class="n">acc2</span><span class="p">,</span><span class="n">mcc</span><span class="p">,</span><span class="n">Recall</span><span class="p">,</span><span class="n">Precision</span><span class="p">,</span><span class="n">F1_score</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">auc</span><span class="p">,</span><span class="n">acc2</span><span class="p">,</span><span class="n">mcc</span><span class="p">,</span><span class="n">Recall</span><span class="p">,</span><span class="n">Precision</span><span class="p">,</span><span class="n">F1_score</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">train_rf</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span>
+                                                      <span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">,</span> <span class="n">max_features</span><span class="o">=</span><span class="s1">&#39;sqrt&#39;</span><span class="p">,</span>
+                                                     <span class="n">features</span><span class="o">=</span><span class="s1">&#39;act_&#39;</span><span class="p">)</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;AUC score:</span><span class="si">{</span><span class="n">auc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Accuracy: </span><span class="si">{</span><span class="n">acc2</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Matthews: </span><span class="si">{</span><span class="n">mcc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Recall: </span><span class="si">{</span><span class="n">Recall</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precision: </span><span class="si">{</span><span class="n">Precision</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;F1 score: </span><span class="si">{</span><span class="n">F1_score</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Training on 512 feature
+
+AUC score:0.9529763965419419
+Accuracy: 0.9701292911279537
+Matthews: 0.8166717881926069
+Recall: 0.8186274509803921
+Precision: 0.8477157360406091
+F1 score: 0.8329177057356608
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Train-RF-with-settings-grid-from-paper">Train RF with settings grid from paper<a class="anchor-link" href="#Train-RF-with-settings-grid-from-paper"> </a></h1>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">ParameterGrid</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">700</span><span class="p">],</span> 
+    <span class="s1">&#39;criterion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;gini&#39;</span><span class="p">,</span> <span class="s1">&#39;entropy&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;max_features&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;log2&#39;</span><span class="p">,</span> <span class="s1">&#39;sqrt&#39;</span><span class="p">]}</span>
+
+<span class="n">param_grid</span> <span class="o">=</span> <span class="n">ParameterGrid</span><span class="p">(</span><span class="n">param_grid</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">setting</span> <span class="ow">in</span> <span class="n">param_grid</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Testing combination: </span><span class="si">{</span><span class="n">setting</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># Crossval using split from earlier</span>
+    
+    <span class="n">aucs</span><span class="p">,</span> <span class="n">accs</span><span class="p">,</span> <span class="n">mccs</span><span class="p">,</span> <span class="n">recalls</span><span class="p">,</span> <span class="n">precs</span><span class="p">,</span> <span class="n">f1_scores</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+   
+        
+    <span class="n">auc</span><span class="p">,</span><span class="n">acc2</span><span class="p">,</span><span class="n">mcc</span><span class="p">,</span><span class="n">recall</span><span class="p">,</span><span class="n">precision</span><span class="p">,</span><span class="n">F1_score</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">train_rf</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> 
+                                                             <span class="n">n_estimators</span><span class="o">=</span><span class="n">setting</span><span class="p">[</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">],</span> 
+                                                             <span class="n">criterion</span><span class="o">=</span><span class="n">setting</span><span class="p">[</span><span class="s1">&#39;criterion&#39;</span><span class="p">],</span>
+                                                             <span class="n">max_features</span><span class="o">=</span><span class="n">setting</span><span class="p">[</span><span class="s1">&#39;max_features&#39;</span><span class="p">])</span>
+        
+    <span class="n">aucs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">auc</span><span class="p">)</span>
+    <span class="n">accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">acc2</span><span class="p">)</span>
+    <span class="n">mccs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mcc</span><span class="p">)</span>
+    <span class="n">recalls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recall</span><span class="p">)</span>
+    <span class="n">precs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">precision</span><span class="p">)</span>
+    <span class="n">f1_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">F1_score</span><span class="p">)</span>
+        
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average ROCAUC of the folds: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">aucs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average accuracy of the folds: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">accs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average Matthews correlation of the folds: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mccs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average recall of the folds: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">recalls</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average precision of the folds: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">precs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average f1 score of the folds: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">f1_scores</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 10}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.969287316446932
+Average accuracy of the folds: 0.9654480606330806
+Average Matthews correlation of the folds: 0.7758973576847494
+Average recall of the folds: 0.7083333333333334
+Average precision of the folds: 0.8892307692307693
+Average f1 score of the folds: 0.7885402455661664
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 50}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9824122022521613
+Average accuracy of the folds: 0.9707980383415069
+Average Matthews correlation of the folds: 0.8138302537014964
+Average recall of the folds: 0.7647058823529411
+Average precision of the folds: 0.899135446685879
+Average f1 score of the folds: 0.8264900662251655
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 100}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9849031508140285
+Average accuracy of the folds: 0.9707980383415069
+Average Matthews correlation of the folds: 0.8145363334143343
+Average recall of the folds: 0.7720588235294118
+Average precision of the folds: 0.8923512747875354
+Average f1 score of the folds: 0.8278580814717477
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 200}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9869180874900229
+Average accuracy of the folds: 0.9716897012929113
+Average Matthews correlation of the folds: 0.8207683870383751
+Average recall of the folds: 0.7818627450980392
+Average precision of the folds: 0.8935574229691877
+Average f1 score of the folds: 0.8339869281045752
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 300}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9878830333015993
+Average accuracy of the folds: 0.9705751226036559
+Average Matthews correlation of the folds: 0.813738649403107
+Average recall of the folds: 0.7769607843137255
+Average precision of the folds: 0.8854748603351955
+Average f1 score of the folds: 0.8276762402088773
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 700}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9874289588321842
+Average accuracy of the folds: 0.971020954079358
+Average Matthews correlation of the folds: 0.8168598577517443
+Average recall of the folds: 0.7818627450980392
+Average precision of the folds: 0.8861111111111111
+Average f1 score of the folds: 0.8307291666666667
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 10}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9693771697006415
+Average accuracy of the folds: 0.9667855550601873
+Average Matthews correlation of the folds: 0.7883133489239316
+Average recall of the folds: 0.7475490196078431
+Average precision of the folds: 0.8689458689458689
+Average f1 score of the folds: 0.8036890645586298
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 50}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.979355388550712
+Average accuracy of the folds: 0.971020954079358
+Average Matthews correlation of the folds: 0.819467316637404
+Average recall of the folds: 0.803921568627451
+Average precision of the folds: 0.8677248677248677
+Average f1 score of the folds: 0.8346055979643766
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 100}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9788907961418998
+Average accuracy of the folds: 0.9712438698172091
+Average Matthews correlation of the folds: 0.8213359427559646
+Average recall of the folds: 0.8088235294117647
+Average precision of the folds: 0.8661417322834646
+Average f1 score of the folds: 0.8365019011406843
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 200}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9808979194914847
+Average accuracy of the folds: 0.9725813642443156
+Average Matthews correlation of the folds: 0.8302884421519848
+Average recall of the folds: 0.821078431372549
+Average precision of the folds: 0.8701298701298701
+Average f1 score of the folds: 0.8448928121059268
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 300}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9810433675677236
+Average accuracy of the folds: 0.9728042799821668
+Average Matthews correlation of the folds: 0.8315195254325867
+Average recall of the folds: 0.821078431372549
+Average precision of the folds: 0.8723958333333334
+Average f1 score of the folds: 0.845959595959596
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 700}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9809562189270018
+Average accuracy of the folds: 0.9728042799821668
+Average Matthews correlation of the folds: 0.8315195254325867
+Average recall of the folds: 0.821078431372549
+Average precision of the folds: 0.8723958333333334
+Average f1 score of the folds: 0.845959595959596
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 10}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9703910990585543
+Average accuracy of the folds: 0.9676772180115916
+Average Matthews correlation of the folds: 0.7919589190669805
+Average recall of the folds: 0.7328431372549019
+Average precision of the folds: 0.8925373134328358
+Average f1 score of the folds: 0.8048452220726784
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 50}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9832452230524382
+Average accuracy of the folds: 0.971020954079358
+Average Matthews correlation of the folds: 0.81712633693644
+Average recall of the folds: 0.7843137254901961
+Average precision of the folds: 0.8839779005524862
+Average f1 score of the folds: 0.8311688311688311
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 100}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9870629345411535
+Average accuracy of the folds: 0.9714667855550602
+Average Matthews correlation of the folds: 0.8202380683239205
+Average recall of the folds: 0.7892156862745098
+Average precision of the folds: 0.8846153846153846
+Average f1 score of the folds: 0.8341968911917099
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 200}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9888071094058025
+Average accuracy of the folds: 0.9716897012929113
+Average Matthews correlation of the folds: 0.8220616199764084
+Average recall of the folds: 0.7941176470588235
+Average precision of the folds: 0.8828337874659401
+Average f1 score of the folds: 0.8361290322580645
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 300}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9886562521035879
+Average accuracy of the folds: 0.9714667855550602
+Average Matthews correlation of the folds: 0.8199727109343596
+Average recall of the folds: 0.7867647058823529
+Average precision of the folds: 0.8867403314917127
+Average f1 score of the folds: 0.8337662337662338
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 700}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9891295593764726
+Average accuracy of the folds: 0.9719126170307624
+Average Matthews correlation of the folds: 0.8230773003911601
+Average recall of the folds: 0.7916666666666666
+Average precision of the folds: 0.8873626373626373
+Average f1 score of the folds: 0.8367875647668395
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 10}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.969766934483455
+Average accuracy of the folds: 0.9692376281765492
+Average Matthews correlation of the folds: 0.806348658128795
+Average recall of the folds: 0.7794117647058824
+Average precision of the folds: 0.8688524590163934
+Average f1 score of the folds: 0.8217054263565892
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 50}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.980438736308648
+Average accuracy of the folds: 0.971020954079358
+Average Matthews correlation of the folds: 0.8197847830610261
+Average recall of the folds: 0.8063725490196079
+Average precision of the folds: 0.8657894736842106
+Average f1 score of the folds: 0.8350253807106599
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 100}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9843129441575551
+Average accuracy of the folds: 0.9723584485064646
+Average Matthews correlation of the folds: 0.8281374576264476
+Average recall of the folds: 0.8137254901960784
+Average precision of the folds: 0.8736842105263158
+Average f1 score of the folds: 0.8426395939086295
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 200}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.983894029656983
+Average accuracy of the folds: 0.9728042799821668
+Average Matthews correlation of the folds: 0.8318264482528194
+Average recall of the folds: 0.8235294117647058
+Average precision of the folds: 0.8704663212435233
+Average f1 score of the folds: 0.8463476070528967
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 300}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9859011530065681
+Average accuracy of the folds: 0.9725813642443156
+Average Matthews correlation of the folds: 0.8302884421519848
+Average recall of the folds: 0.821078431372549
+Average precision of the folds: 0.8701298701298701
+Average f1 score of the folds: 0.8448928121059268
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 700}
+Training on 1024 feature
+
+Average ROCAUC of the folds: 0.9858735058515805
+Average accuracy of the folds: 0.9725813642443156
+Average Matthews correlation of the folds: 0.8299808932166253
+Average recall of the folds: 0.8186274509803921
+Average precision of the folds: 0.8720626631853786
+Average f1 score of the folds: 0.8445006321112516
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mccs</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.8299808932166253</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">to</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/Drug-Discovery-blog/2021/04/24/4.0-RF_model_with_activations.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/Drug-Discovery-blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/Drug-Discovery-blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/Drug-Discovery-blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>A DAT255 project based on the paper &quot;Investigating deep neural networks hyper-parameters and comparison of performance to shallow methods for modeling bioactivity data&quot; .</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/Drug-Discovery" title="Drug-Discovery"><svg class="svg-icon grey"><use xlink:href="/Drug-Discovery-blog/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

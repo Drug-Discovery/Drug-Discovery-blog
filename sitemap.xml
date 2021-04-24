@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://drug-discovery.github.io/Drug-Discovery-blog/2021/04/24/DD-blogpost.html</loc>
+<loc>https://drug-discovery.github.io/Drug-Discovery-blog/2021/04/24/1.0-Data_preparations.html</loc>
+<lastmod>2021-04-24T00:00:00-05:00</lastmod>
+</url>
+<url>
+<loc>https://drug-discovery.github.io/Drug-Discovery-blog/2021/04/24/2.0-image_classification.html</loc>
+<lastmod>2021-04-24T00:00:00-05:00</lastmod>
+</url>
+<url>
+<loc>https://drug-discovery.github.io/Drug-Discovery-blog/2021/04/24/3.0-create_activations.html</loc>
+<lastmod>2021-04-24T00:00:00-05:00</lastmod>
+</url>
+<url>
+<loc>https://drug-discovery.github.io/Drug-Discovery-blog/2021/04/24/4.0-RF_model_with_activations.html</loc>
 <lastmod>2021-04-24T00:00:00-05:00</lastmod>
 </url>
 <url>
