@@ -4,9 +4,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>1 - Data preparations | Drug Discovery</title>
+<title>1 - Data preparations and Random Forest model | Drug Discovery</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="1 - Data preparations" />
+<meta property="og:title" content="1 - Data preparations and Random Forest model" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="A DAT255 project based on the paper “Investigating deep neural networks hyper-parameters and comparison of performance to shallow methods for modeling bioactivity data” ." />
 <meta property="og:description" content="A DAT255 project based on the paper “Investigating deep neural networks hyper-parameters and comparison of performance to shallow methods for modeling bioactivity data” ." />
@@ -16,7 +16,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-04-24T00:00:00-05:00" />
 <script type="application/ld+json">
-{"url":"https://drug-discovery.github.io/Drug-Discovery-blog/2021/04/24/1.0-Data_preparations.html","@type":"BlogPosting","headline":"1 - Data preparations","dateModified":"2021-04-24T00:00:00-05:00","datePublished":"2021-04-24T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://drug-discovery.github.io/Drug-Discovery-blog/2021/04/24/1.0-Data_preparations.html"},"description":"A DAT255 project based on the paper “Investigating deep neural networks hyper-parameters and comparison of performance to shallow methods for modeling bioactivity data” .","@context":"https://schema.org"}</script>
+{"url":"https://drug-discovery.github.io/Drug-Discovery-blog/2021/04/24/1.0-Data_preparations.html","@type":"BlogPosting","headline":"1 - Data preparations and Random Forest model","dateModified":"2021-04-24T00:00:00-05:00","datePublished":"2021-04-24T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://drug-discovery.github.io/Drug-Discovery-blog/2021/04/24/1.0-Data_preparations.html"},"description":"A DAT255 project based on the paper “Investigating deep neural networks hyper-parameters and comparison of performance to shallow methods for modeling bioactivity data” .","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/Drug-Discovery-blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://drug-discovery.github.io/Drug-Discovery-blog/feed.xml" title="Drug Discovery" /><link rel="shortcut icon" type="image/x-icon" href="/Drug-Discovery-blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -71,7 +71,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">1 - Data preparations</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-04-24T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">1 - Data preparations and Random Forest model</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-04-24T00:00:00-05:00" itemprop="datePublished">
         Apr 24, 2021
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -171,6 +171,34 @@ The activity classes were selected based on data availability and as representat
     <span class="n">Chem</span><span class="o">.</span><span class="n">SanitizeMol</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
     <span class="n">fp</span> <span class="o">=</span> <span class="n">AllChem</span><span class="o">.</span><span class="n">GetMorganFingerprintAsBitVect</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">diam</span><span class="p">,</span> <span class="n">nBits</span> <span class="o">=</span> <span class="n">bits</span><span class="p">)</span> 
     <span class="k">return</span> <span class="n">fp</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The Morgan Fingerprint can also be displayed as an image:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">smile</span> <span class="o">=</span> <span class="s1">&#39;CNC(=O)[C@@H](NC(=O)N1C(=O)N(CCN2CCOCC2)c3ccccc13)C(C)(C)C&#39;</span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">smile</span><span class="p">)</span>
+<span class="n">Chem</span><span class="o">.</span><span class="n">SanitizeMol</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">fp</span><span class="o">=</span><span class="n">AllChem</span><span class="o">.</span><span class="n">GetMorganFingerprintAsBitVect</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">nBits</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
+<span class="n">fp</span>
 </pre></div>
 
     </div>
@@ -474,6 +502,36 @@ The activity classes were selected based on data availability and as representat
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here, a Random Forest model is used, the settings from the paper is used with going through the different setting in each CV iteration.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">700</span><span class="p">],</span> 
+    <span class="s1">&#39;criterion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;gini&#39;</span><span class="p">,</span> <span class="s1">&#39;entropy&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;max_features&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;log2&#39;</span><span class="p">,</span> <span class="s1">&#39;sqrt&#39;</span><span class="p">]</span>
+             <span class="p">}</span>
+
+<span class="n">param_grid</span> <span class="o">=</span> <span class="n">ParameterGrid</span><span class="p">(</span><span class="n">param_grid</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
     
     
 <div class="cell border-box-sizing code_cell rendered">
