@@ -77,7 +77,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      8 min read
+      9 min read
     
 </span></p>
 
@@ -147,34 +147,16 @@ The activity classes were selected based on data availability and as representat
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">top_mcc_scores</span> <span class="o">=</span> <span class="p">{</span>
-    
-    <span class="s1">&#39;CHEMBL205&#39;</span><span class="p">:</span> <span class="mf">0.862</span><span class="p">,</span>
-    <span class="s1">&#39;CHEMBL301&#39;</span><span class="p">:</span> <span class="mf">0.926</span><span class="p">,</span>
-    <span class="s1">&#39;CHEMBL240&#39;</span><span class="p">:</span> <span class="mf">0.884</span><span class="p">,</span>
-    <span class="s1">&#39;CHEMBL219&#39;</span><span class="p">:</span> <span class="mf">0.887</span><span class="p">,</span>
-    <span class="s1">&#39;CHEMBL244&#39;</span><span class="p">:</span> <span class="mf">0.983</span><span class="p">,</span>
-    <span class="s1">&#39;CHEMBL218&#39;</span><span class="p">:</span> <span class="mf">0.941</span><span class="p">,</span>
-    <span class="s1">&#39;CHEMBL1978&#39;</span><span class="p">:</span> <span class="mf">0.904</span><span class="p">}</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Run-the-functions-on-a-file-from-dataset-and-store-the-results">Run the functions on a file from dataset and store the results<a class="anchor-link" href="#Run-the-functions-on-a-file-from-dataset-and-store-the-results"> </a></h1>
+<p>In this last notebook we will use the activations and fingerprints created from the previous notebooks and run the same Random Forest classifier on the new dataset.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Create-Dataframe-from-csv-file">Create Dataframe from csv file<a class="anchor-link" href="#Create-Dataframe-from-csv-file"> </a></h1>
 </div>
 </div>
 </div>
@@ -212,6 +194,203 @@ The activity classes were selected based on data availability and as representat
 </div>
     
 
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CID</th>
+      <th>SMILES</th>
+      <th>Activity</th>
+      <th>ECFP4_1</th>
+      <th>ECFP4_2</th>
+      <th>ECFP4_3</th>
+      <th>ECFP4_4</th>
+      <th>ECFP4_5</th>
+      <th>ECFP4_6</th>
+      <th>ECFP4_7</th>
+      <th>...</th>
+      <th>act_502</th>
+      <th>act_503</th>
+      <th>act_504</th>
+      <th>act_505</th>
+      <th>act_506</th>
+      <th>act_507</th>
+      <th>act_508</th>
+      <th>act_509</th>
+      <th>act_510</th>
+      <th>act_511</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>CHEMBL188002</td>
+      <td>S(=O)(=O)(N)c1cc(N/C(/S)=N\c2cc(C(=O)[O-])c(cc...</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>-20.266380</td>
+      <td>-58.616051</td>
+      <td>-36.874432</td>
+      <td>-84.006630</td>
+      <td>-28.130043</td>
+      <td>-14.237524</td>
+      <td>-30.243919</td>
+      <td>-89.924866</td>
+      <td>-25.477444</td>
+      <td>-13.185804</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>CHEMBL364127</td>
+      <td>Clc1ccc(cc1)C(=O)NC1Cc2cc(S(=O)(=O)N)ccc2C1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>-27.719458</td>
+      <td>-79.247879</td>
+      <td>-71.388512</td>
+      <td>-117.074829</td>
+      <td>-87.031128</td>
+      <td>-25.362850</td>
+      <td>-91.691391</td>
+      <td>-97.514877</td>
+      <td>-159.834167</td>
+      <td>37.859943</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>CHEMBL1683469</td>
+      <td>S(=O)(=O)(N)c1ccc(cc1)CNS(=O)(=O)CC12CCC(CC1=O...</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>-27.371447</td>
+      <td>-91.037331</td>
+      <td>-82.402603</td>
+      <td>-140.058167</td>
+      <td>-110.499306</td>
+      <td>-35.576706</td>
+      <td>-118.137932</td>
+      <td>-114.797058</td>
+      <td>-210.545105</td>
+      <td>58.341396</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>CHEMBL52564</td>
+      <td>Oc1ccccc1\C=C\C(=O)[O-]</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>-12.962411</td>
+      <td>-65.378036</td>
+      <td>-52.445572</td>
+      <td>-105.202003</td>
+      <td>-54.042187</td>
+      <td>-23.038553</td>
+      <td>-45.937416</td>
+      <td>-107.758331</td>
+      <td>-74.264862</td>
+      <td>15.236348</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>CHEMBL21427</td>
+      <td>OB(O)c1ccc(OC)cc1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>-14.881062</td>
+      <td>-61.484863</td>
+      <td>-52.275417</td>
+      <td>-100.329498</td>
+      <td>-55.440769</td>
+      <td>-24.665730</td>
+      <td>-48.966393</td>
+      <td>-98.103355</td>
+      <td>-83.055305</td>
+      <td>20.628500</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 1541 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Train-test-split">Train test split<a class="anchor-link" href="#Train-test-split"> </a></h1>
@@ -230,137 +409,6 @@ The activity classes were selected based on data availability and as representat
 </pre></div>
 
     </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-Int64Index: 13455 entries, 1 to 17940
-Columns: 1541 entries, CID to act_511
-dtypes: bool(1), float64(512), int64(1025), object(3)
-memory usage: 158.2+ MB
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;CID&quot;</span><span class="p">,</span> <span class="s2">&quot;SMILES&quot;</span><span class="p">,</span> <span class="s2">&quot;Activity&quot;</span><span class="p">,</span> <span class="s2">&quot;Image&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">train</span><span class="p">[</span><span class="s2">&quot;Activity&quot;</span><span class="p">]</span>
-<span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;CID&quot;</span><span class="p">,</span> <span class="s2">&quot;SMILES&quot;</span><span class="p">,</span> <span class="s2">&quot;Activity&quot;</span><span class="p">,</span> <span class="s2">&quot;Image&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">test</span><span class="p">[</span><span class="s2">&quot;Activity&quot;</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y_test</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>4486</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y_train</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="n">X_train</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-Int64Index: 10764 entries, 1 to 17938
-Columns: 1537 entries, ECFP4_1 to act_511
-dtypes: bool(1), float64(512), int64(1024)
-memory usage: 126.2 MB
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>(10764, None)</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -410,78 +458,12 @@ memory usage: 126.2 MB
 </div>
     
 
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">auc</span><span class="p">,</span><span class="n">acc2</span><span class="p">,</span><span class="n">mcc</span><span class="p">,</span><span class="n">Recall</span><span class="p">,</span><span class="n">Precision</span><span class="p">,</span><span class="n">F1_score</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">train_rf</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span>
-                                                      <span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">,</span> <span class="n">max_features</span><span class="o">=</span><span class="s1">&#39;sqrt&#39;</span><span class="p">,</span>
-                                                     <span class="n">features</span><span class="o">=</span><span class="s1">&#39;act_&#39;</span><span class="p">)</span>
-    
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;AUC score:</span><span class="si">{</span><span class="n">auc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Accuracy: </span><span class="si">{</span><span class="n">acc2</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Matthews: </span><span class="si">{</span><span class="n">mcc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Recall: </span><span class="si">{</span><span class="n">Recall</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precision: </span><span class="si">{</span><span class="n">Precision</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;F1 score: </span><span class="si">{</span><span class="n">F1_score</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Training on 512 feature
-
-AUC score:0.9529763965419419
-Accuracy: 0.9701292911279537
-Matthews: 0.8166717881926069
-Recall: 0.8186274509803921
-Precision: 0.8477157360406091
-F1 score: 0.8329177057356608
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Train-RF-with-settings-grid-from-paper">Train RF with settings grid from paper<a class="anchor-link" href="#Train-RF-with-settings-grid-from-paper"> </a></h1>
+<h2 id="Train-RF-with-settings-grid-from-paper">Train RF with settings grid from paper<a class="anchor-link" href="#Train-RF-with-settings-grid-from-paper"> </a></h2>
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">ParameterGrid</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -495,6 +477,23 @@ F1 score: 0.8329177057356608
     <span class="s1">&#39;max_features&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;log2&#39;</span><span class="p">,</span> <span class="s1">&#39;sqrt&#39;</span><span class="p">]}</span>
 
 <span class="n">param_grid</span> <span class="o">=</span> <span class="n">ParameterGrid</span><span class="p">(</span><span class="n">param_grid</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">MCC</span><span class="o">=</span><span class="p">[]</span>
 </pre></div>
 
     </div>
@@ -526,6 +525,7 @@ F1 score: 0.8329177057356608
     <span class="n">aucs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">auc</span><span class="p">)</span>
     <span class="n">accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">acc2</span><span class="p">)</span>
     <span class="n">mccs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mcc</span><span class="p">)</span>
+    <span class="n">MCC</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mcc</span><span class="p">)</span>
     <span class="n">recalls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recall</span><span class="p">)</span>
     <span class="n">precs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">precision</span><span class="p">)</span>
     <span class="n">f1_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">F1_score</span><span class="p">)</span>
@@ -813,7 +813,7 @@ Average f1 score of the folds: 0.8445006321112516
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mccs</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">MCC</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -846,7 +846,7 @@ Average f1 score of the folds: 0.8445006321112516
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">to</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">MCC</span><span class="p">),</span> <span class="n">top_mcc_scores</span><span class="p">(</span><span class="s1">&#39;CHEMBL_205&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>

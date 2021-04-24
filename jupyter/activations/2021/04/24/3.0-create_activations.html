@@ -77,7 +77,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      10 min read
+      7 min read
     
 </span></p>
 
@@ -141,99 +141,13 @@ The activity classes were selected based on data availability and as representat
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">top_mcc_scores</span> <span class="o">=</span> <span class="p">{</span>
-    
-    <span class="s1">&#39;CHEMBL205&#39;</span><span class="p">:</span> <span class="mf">0.862</span><span class="p">,</span>
-    <span class="s1">&#39;CHEMBL301&#39;</span><span class="p">:</span> <span class="mf">0.926</span><span class="p">,</span>
-    <span class="s1">&#39;CHEMBL240&#39;</span><span class="p">:</span> <span class="mf">0.884</span><span class="p">,</span>
-    <span class="s1">&#39;CHEMBL219&#39;</span><span class="p">:</span> <span class="mf">0.887</span><span class="p">,</span>
-    <span class="s1">&#39;CHEMBL244&#39;</span><span class="p">:</span> <span class="mf">0.983</span><span class="p">,</span>
-    <span class="s1">&#39;CHEMBL218&#39;</span><span class="p">:</span> <span class="mf">0.941</span><span class="p">,</span>
-    <span class="s1">&#39;CHEMBL1978&#39;</span><span class="p">:</span> <span class="mf">0.904</span><span class="p">}</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>nvidia-smi
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Fri Apr 23 10:36:45 2021       
-+-----------------------------------------------------------------------------+
-| NVIDIA-SMI 450.36.06    Driver Version: 450.36.06    CUDA Version: 11.0     |
-|-------------------------------+----------------------+----------------------+
-| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
-|                               |                      |               MIG M. |
-|===============================+======================+======================|
-|   0  Quadro P5000        On   | 00000000:00:05.0 Off |                  Off |
-| 26%   22C    P8     5W / 180W |   3407MiB / 16278MiB |      0%      Default |
-|                               |                      |                  N/A |
-+-------------------------------+----------------------+----------------------+
-                                                                               
-+-----------------------------------------------------------------------------+
-| Processes:                                                                  |
-|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
-|        ID   ID                                                   Usage      |
-|=============================================================================|
-+-----------------------------------------------------------------------------+
-</pre>
-</div>
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this notebook we will create an fastai cnn learner on the same dataset as in the last notebook and then extract the second to last layer with a so called hook. We can then apply the activations from this layer to every image in the dataset. In the next notebook we will use these activations to hopefully better the performance of our Random Forest model.</p>
 
 </div>
 </div>
-
 </div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -245,68 +159,6 @@ The activity classes were selected based on data availability and as representat
 </pre></div>
 
     </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;../dataset/13321_2017_226_MOESM1_ESM/&#39;</span><span class="p">)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="o">/</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dataset</span><span class="si">}</span><span class="s1">.csv&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">iterdir</span><span class="p">())</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/RdkitDescriptors.py&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL205_cl_ecfp_1024.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL218_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL205_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL1978_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL244_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL240_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL301_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL219_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/.ipynb_checkpoints&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/mol_images&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL218_cl_ecfp_1024.csv&#39;)]</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -338,27 +190,10 @@ The activity classes were selected based on data availability and as representat
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Create-train-validation-split">Create train validation split<a class="anchor-link" href="#Create-train-validation-split"> </a></h1>
+<h2 id="Create-train-validation-split">Create train validation split<a class="anchor-link" href="#Create-train-validation-split"> </a></h2>
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -367,10 +202,6 @@ The activity classes were selected based on data availability and as representat
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_df</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Construct a dataframe containing </span>
-<span class="sd">        CID, SMILES, Image, Activity</span>
-<span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="n">name</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">stem</span>
     
@@ -411,27 +242,10 @@ The activity classes were selected based on data availability and as representat
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Create-dataloader">Create dataloader<a class="anchor-link" href="#Create-dataloader"> </a></h1>
+<h2 id="Create-dataloader">Create dataloader<a class="anchor-link" href="#Create-dataloader"> </a></h2>
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">fastai.vision.all</span> <span class="kn">import</span> <span class="o">*</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -614,25 +428,6 @@ The activity classes were selected based on data availability and as representat
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">auc</span><span class="p">,</span><span class="n">roc_auc_score</span><span class="p">,</span><span class="n">recall_score</span><span class="p">,</span><span class="n">precision_score</span><span class="p">,</span><span class="n">f1_score</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">matthews_corrcoef</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -915,38 +710,6 @@ Finding learning rate...
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">interp</span> <span class="o">=</span> <span class="n">ClassificationInterpretation</span><span class="o">.</span><span class="n">from_learner</span><span class="p">(</span><span class="n">learn</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea ">
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">interp</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">()</span>
 </pre></div>
 
@@ -1039,58 +802,8 @@ Finding learning rate...
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>Linear(in_features=1024, out_features=512, bias=False)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">hook_output</span> <span class="o">=</span> <span class="n">Hook</span><span class="p">()</span>
 <span class="n">hook</span> <span class="o">=</span> <span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">register_forward_hook</span><span class="p">(</span><span class="n">hook_output</span><span class="o">.</span><span class="n">hook_func</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_nodupl</span><span class="o">=</span><span class="n">df</span>
 </pre></div>
 
     </div>
@@ -1241,573 +954,13 @@ Finding learning rate...
 </div>
     
 
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_dls</span><span class="o">.</span><span class="n">dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>(PILImage mode=RGB size=224x224, TensorCategory(0))</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_df</span> <span class="o">=</span> <span class="n">test_dls</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 17941 entries, 0 to 17940
-Data columns (total 6 columns):
- #   Column    Non-Null Count  Dtype 
----  ------    --------------  ----- 
- 0   index     17941 non-null  int64 
- 1   CID       17941 non-null  object
- 2   SMILES    17941 non-null  object
- 3   Activity  17941 non-null  int64 
- 4   Image     17941 non-null  object
- 5   is_valid  17941 non-null  object
-dtypes: int64(2), object(4)
-memory usage: 841.1+ KB
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_nodupl</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 17941 entries, 0 to 17940
-Data columns (total 5 columns):
- #   Column    Non-Null Count  Dtype 
----  ------    --------------  ----- 
- 0   CID       17941 non-null  object
- 1   SMILES    17941 non-null  object
- 2   Activity  17941 non-null  int64 
- 3   Image     17941 non-null  object
- 4   is_valid  17941 non-null  object
-dtypes: int64(1), object(4)
-memory usage: 700.9+ KB
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Check">Check<a class="anchor-link" href="#Check"> </a></h1>
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_df</span><span class="o">.</span><span class="n">CID</span> <span class="o">==</span> <span class="s1">&#39;CHEMBL1089637&#39;</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>index</th>
-      <th>CID</th>
-      <th>SMILES</th>
-      <th>Activity</th>
-      <th>Image</th>
-      <th>is_valid</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>15524</th>
-      <td>1403</td>
-      <td>CHEMBL1089637</td>
-      <td>S(=O)(=O)(N)c1ccc(NC2OCC(O)C(O)C2O)cc1</td>
-      <td>1</td>
-      <td>CHEMBL1089637.png</td>
-      <td>False</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_nodupl</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_nodupl</span><span class="o">.</span><span class="n">CID</span> <span class="o">==</span> <span class="s1">&#39;CHEMBL1089637&#39;</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>CID</th>
-      <th>SMILES</th>
-      <th>Activity</th>
-      <th>Image</th>
-      <th>is_valid</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1403</th>
-      <td>CHEMBL1089637</td>
-      <td>S(=O)(=O)(N)c1ccc(NC2OCC(O)C(O)C2O)cc1</td>
-      <td>1</td>
-      <td>CHEMBL1089637.png</td>
-      <td>False</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_dls</span><span class="o">.</span><span class="n">dataset</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>(#17941) [(PILImage mode=RGB size=224x224, TensorCategory(0)),(PILImage mode=RGB size=224x224, TensorCategory(0)),(PILImage mode=RGB size=224x224, TensorCategory(1)),(PILImage mode=RGB size=224x224, TensorCategory(0)),(PILImage mode=RGB size=224x224, TensorCategory(0)),(PILImage mode=RGB size=224x224, TensorCategory(0)),(PILImage mode=RGB size=224x224, TensorCategory(0)),(PILImage mode=RGB size=224x224, TensorCategory(0)),(PILImage mode=RGB size=224x224, TensorCategory(0)),(PILImage mode=RGB size=224x224, TensorCategory(0))...]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_dls</span><span class="o">.</span><span class="n">dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_png output_subarea output_execute_result">
-<img src="data:image/png;base64,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
-" />
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_df</span><span class="o">.</span><span class="n">CID</span><span class="o">==</span><span class="s1">&#39;CHEMBL1089637&#39;</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
+<p>Defining the function for getting activations of a single image in the dataset</p>
 
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>index</th>
-      <th>CID</th>
-      <th>SMILES</th>
-      <th>Activity</th>
-      <th>Image</th>
-      <th>is_valid</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>15524</th>
-      <td>1403</td>
-      <td>CHEMBL1089637</td>
-      <td>S(=O)(=O)(N)c1ccc(NC2OCC(O)C(O)C2O)cc1</td>
-      <td>1</td>
-      <td>CHEMBL1089637.png</td>
-      <td>False</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="n">CID</span><span class="p">):</span>
-    <span class="n">idx</span> <span class="o">=</span> <span class="n">test_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_df</span><span class="o">.</span><span class="n">CID</span><span class="o">==</span><span class="n">CID</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">test_dls</span><span class="o">.</span><span class="n">dataset</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t_img</span><span class="p">,</span> <span class="n">t_cat</span> <span class="o">=</span> <span class="n">get_data</span><span class="p">(</span><span class="s1">&#39;CHEMBL1089637&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>15524
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">test_dls</span><span class="o">.</span><span class="n">dataset</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>17941</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_dls</span><span class="o">.</span><span class="n">dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>(PILImage mode=RGB size=224x224, TensorCategory(0))</pre>
-</div>
-
 </div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t_img</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_png output_subarea output_execute_result">
-<img src="data:image/png;base64,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
-" />
-</div>
-
-</div>
-
 </div>
 </div>
-
-</div>
-    
-
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1854,39 +1007,13 @@ memory usage: 700.9+ KB
 </div>
     
 
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_nodupl</span><span class="o">.</span><span class="n">CID</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&#39;CHEMBL188002&#39;</pre>
-</div>
-
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Getting 512 activations for every image in the dataframe and adding it as a single column</p>
 
 </div>
 </div>
-
 </div>
-    
-
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1913,7 +1040,7 @@ memory usage: 700.9+ KB
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_nodupl</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_nodupl</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -2012,49 +1139,13 @@ memory usage: 700.9+ KB
 </div>
     
 
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_nodupl</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 17941 entries, 0 to 17940
-Data columns (total 6 columns):
- #   Column       Non-Null Count  Dtype 
----  ------       --------------  ----- 
- 0   CID          17941 non-null  object
- 1   SMILES       17941 non-null  object
- 2   Activity     17941 non-null  int64 
- 3   Image        17941 non-null  object
- 4   is_valid     17941 non-null  object
- 5   activations  17941 non-null  object
-dtypes: int64(1), object(5)
-memory usage: 841.1+ KB
-</pre>
-</div>
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Splitting each activation to its own column in the dataframe</p>
 
 </div>
 </div>
-
 </div>
-    
-
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -2323,294 +1414,17 @@ memory usage: 70.8+ MB
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Add-ECFB-to-dataframe">Add ECFB to dataframe<a class="anchor-link" href="#Add-ECFB-to-dataframe"> </a></h1>
+<h1 id="Add-ECFP-to-dataframe">Add ECFP to dataframe<a class="anchor-link" href="#Add-ECFP-to-dataframe"> </a></h1>
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_ecfp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="o">/</span><span class="s1">&#39;CHEMBL205_cl_ecfp_1024.csv&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_ecfp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>CID</th>
-      <th>SMILES</th>
-      <th>Activity</th>
-      <th>ECFP4_1</th>
-      <th>ECFP4_2</th>
-      <th>ECFP4_3</th>
-      <th>ECFP4_4</th>
-      <th>ECFP4_5</th>
-      <th>ECFP4_6</th>
-      <th>ECFP4_7</th>
-      <th>...</th>
-      <th>ECFP4_1015</th>
-      <th>ECFP4_1016</th>
-      <th>ECFP4_1017</th>
-      <th>ECFP4_1018</th>
-      <th>ECFP4_1019</th>
-      <th>ECFP4_1020</th>
-      <th>ECFP4_1021</th>
-      <th>ECFP4_1022</th>
-      <th>ECFP4_1023</th>
-      <th>ECFP4_1024</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>CHEMBL188002</td>
-      <td>S(=O)(=O)(N)c1cc(N/C(/S)=N\c2cc(C(=O)[O-])c(cc2)C=2c3c(OC4=CC(=O)C=CC=24)cc(O)cc3)ccc1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>CHEMBL364127</td>
-      <td>Clc1ccc(cc1)C(=O)NC1Cc2cc(S(=O)(=O)N)ccc2C1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>CHEMBL1683469</td>
-      <td>S(=O)(=O)(N)c1ccc(cc1)CNS(=O)(=O)CC12CCC(CC1=O)C2(C)C</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>CHEMBL52564</td>
-      <td>Oc1ccccc1\C=C\C(=O)[O-]</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>CHEMBL21427</td>
-      <td>OB(O)c1ccc(OC)cc1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 1027 columns</p>
-</div>
-</div>
-
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Also adding ECFP fingerprint to the dataframe and storing it as a separate csv.</p>
 
 </div>
 </div>
-
 </div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_ecfp</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 17941 entries, 0 to 17940
-Columns: 1027 entries, CID to ECFP4_1024
-dtypes: int64(1025), object(2)
-memory usage: 140.6+ MB
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_acts</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 17941 entries, 0 to 17940
-Columns: 517 entries, CID to act_511
-dtypes: float64(512), int64(1), object(4)
-memory usage: 70.8+ MB
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -3029,58 +1843,6 @@ memory usage: 70.8+ MB
 </table>
 <p>5 rows × 1541 columns</p>
 </div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;SMILES_x&#39;</span><span class="p">:</span> <span class="s1">&#39;SMILES&#39;</span><span class="p">,</span> <span class="s1">&#39;Activity_x&#39;</span><span class="p">:</span> <span class="s1">&#39;Activity&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">is_valid</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>False    13455
-True      4486
-Name: is_valid, dtype: int64</pre>
 </div>
 
 </div>
