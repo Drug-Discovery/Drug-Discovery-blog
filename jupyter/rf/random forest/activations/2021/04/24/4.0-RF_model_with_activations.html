@@ -77,7 +77,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      9 min read
+      8 min read
     
 </span></p>
 
@@ -172,88 +172,6 @@ The activity classes were selected based on data availability and as representat
 </div>
     
 
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;../dataset/13321_2017_226_MOESM1_ESM/&#39;</span><span class="p">)</span>
-<span class="c1">#df = pd.read_csv(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL205_cl.csv&#39;, index_col=0)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">iterdir</span><span class="p">())</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/RdkitDescriptors.py&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL205_cl_ecfp_1024.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL218_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL205_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL1978_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL244_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL240_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL301_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL219_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/chembl205-data-with-ecfp-activations.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/.ipynb_checkpoints&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/mol_images&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL218_cl_ecfp_1024.csv&#39;)]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Run-the-functions-on-a-file-from-dataset-and-store-the-results">Run the functions on a file from dataset and store the results<a class="anchor-link" href="#Run-the-functions-on-a-file-from-dataset-and-store-the-results"> </a></h1>
@@ -294,261 +212,12 @@ The activity classes were selected based on data availability and as representat
 </div>
     
 
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>CID</th>
-      <th>SMILES</th>
-      <th>Activity</th>
-      <th>ECFP4_1</th>
-      <th>ECFP4_2</th>
-      <th>ECFP4_3</th>
-      <th>ECFP4_4</th>
-      <th>ECFP4_5</th>
-      <th>ECFP4_6</th>
-      <th>ECFP4_7</th>
-      <th>...</th>
-      <th>act_502</th>
-      <th>act_503</th>
-      <th>act_504</th>
-      <th>act_505</th>
-      <th>act_506</th>
-      <th>act_507</th>
-      <th>act_508</th>
-      <th>act_509</th>
-      <th>act_510</th>
-      <th>act_511</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>CHEMBL188002</td>
-      <td>S(=O)(=O)(N)c1cc(N/C(/S)=N\c2cc(C(=O)[O-])c(cc...</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>-20.266380</td>
-      <td>-58.616051</td>
-      <td>-36.874432</td>
-      <td>-84.006630</td>
-      <td>-28.130043</td>
-      <td>-14.237524</td>
-      <td>-30.243919</td>
-      <td>-89.924866</td>
-      <td>-25.477444</td>
-      <td>-13.185804</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>CHEMBL364127</td>
-      <td>Clc1ccc(cc1)C(=O)NC1Cc2cc(S(=O)(=O)N)ccc2C1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>-27.719458</td>
-      <td>-79.247879</td>
-      <td>-71.388512</td>
-      <td>-117.074829</td>
-      <td>-87.031128</td>
-      <td>-25.362850</td>
-      <td>-91.691391</td>
-      <td>-97.514877</td>
-      <td>-159.834167</td>
-      <td>37.859943</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>CHEMBL1683469</td>
-      <td>S(=O)(=O)(N)c1ccc(cc1)CNS(=O)(=O)CC12CCC(CC1=O...</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>-27.371447</td>
-      <td>-91.037331</td>
-      <td>-82.402603</td>
-      <td>-140.058167</td>
-      <td>-110.499306</td>
-      <td>-35.576706</td>
-      <td>-118.137932</td>
-      <td>-114.797058</td>
-      <td>-210.545105</td>
-      <td>58.341396</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>CHEMBL52564</td>
-      <td>Oc1ccccc1\C=C\C(=O)[O-]</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>-12.962411</td>
-      <td>-65.378036</td>
-      <td>-52.445572</td>
-      <td>-105.202003</td>
-      <td>-54.042187</td>
-      <td>-23.038553</td>
-      <td>-45.937416</td>
-      <td>-107.758331</td>
-      <td>-74.264862</td>
-      <td>15.236348</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>CHEMBL21427</td>
-      <td>OB(O)c1ccc(OC)cc1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>-14.881062</td>
-      <td>-61.484863</td>
-      <td>-52.275417</td>
-      <td>-100.329498</td>
-      <td>-55.440769</td>
-      <td>-24.665730</td>
-      <td>-48.966393</td>
-      <td>-98.103355</td>
-      <td>-83.055305</td>
-      <td>20.628500</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 1541 columns</p>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Train-test-split">Train test split<a class="anchor-link" href="#Train-test-split"> </a></h1>
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">KFold</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">is_valid</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>False    13455
-True      4486
-Name: is_valid, dtype: int64</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -704,42 +373,6 @@ memory usage: 126.2 MB
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">auc</span><span class="p">,</span><span class="n">roc_auc_score</span><span class="p">,</span><span class="n">recall_score</span><span class="p">,</span><span class="n">precision_score</span><span class="p">,</span><span class="n">f1_score</span>
-<span class="kn">from</span>  <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">matthews_corrcoef</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1166,6 +799,13 @@ Average f1 score of the folds: 0.8445006321112516
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The mean score of the Matthews correlation from all the different testing combinations.</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
