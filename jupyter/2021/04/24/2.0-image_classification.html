@@ -77,7 +77,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      4 min read
+      2 min read
     
 </span></p>
 
@@ -138,148 +138,6 @@ The activity classes were selected based on data availability and as representat
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%capture</span>
-<span class="err">!</span><span class="n">wget</span> <span class="o">-</span><span class="n">c</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">repo</span><span class="o">.</span><span class="n">continuum</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">miniconda</span><span class="o">/</span><span class="n">Miniconda3</span><span class="o">-</span><span class="n">latest</span><span class="o">-</span><span class="n">Linux</span><span class="o">-</span><span class="n">x86_64</span><span class="o">.</span><span class="n">sh</span>
-<span class="err">!</span><span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">Miniconda3</span><span class="o">-</span><span class="n">latest</span><span class="o">-</span><span class="n">Linux</span><span class="o">-</span><span class="n">x86_64</span><span class="o">.</span><span class="n">sh</span>
-<span class="err">!</span><span class="n">time</span> <span class="n">bash</span> <span class="o">./</span><span class="n">Miniconda3</span><span class="o">-</span><span class="n">latest</span><span class="o">-</span><span class="n">Linux</span><span class="o">-</span><span class="n">x86_64</span><span class="o">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">b</span> <span class="o">-</span><span class="n">f</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span>
-<span class="err">!</span><span class="n">time</span> <span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">q</span> <span class="o">-</span><span class="n">y</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">rdkit</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/usr/local/lib/python3.7/site-packages/&#39;</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">rdkit</span> <span class="kn">import</span> <span class="n">Chem</span>
-<span class="kn">from</span> <span class="nn">rdkit.Chem</span> <span class="kn">import</span> <span class="n">AllChem</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;CHEMBL205_cl&#39;</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;../dataset/13321_2017_226_MOESM1_ESM/&#39;</span><span class="p">)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="o">/</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dataset</span><span class="si">}</span><span class="s1">.csv&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">iterdir</span><span class="p">())</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/RdkitDescriptors.py&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL205_cl_ecfp_1024.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL218_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL205_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL1978_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL244_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL240_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL301_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL219_cl.csv&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/.ipynb_checkpoints&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/mol_images&#39;),
- PosixPath(&#39;../dataset/13321_2017_226_MOESM1_ESM/CHEMBL218_cl_ecfp_1024.csv&#39;)]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Generate-images">Generate images<a class="anchor-link" href="#Generate-images"> </a></h1>
@@ -399,34 +257,6 @@ The activity classes were selected based on data availability and as representat
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#import shutil</span>
-<span class="c1">#import pathlib</span>
-<span class="c1">#import os  # for checking results</span>
-
-<span class="c1">#print(os.listdir())</span>
-<span class="c1"># [&quot;a_directory&quot;, &quot;foo.py&quot;, ...]</span>
-
-<span class="c1">#DATA = DATA/&#39;directory&#39;</span>
-
-<span class="c1">#shutil.rmtree(DATA)</span>
-<span class="c1">#print(os.listdir())</span>
-<span class="c1"># [&quot;foo.py&quot;, ...]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">IMAGES</span> <span class="o">=</span> <span class="n">DATA</span><span class="o">/</span><span class="n">dataset</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">IMAGES</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
     <span class="n">IMAGES</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -462,23 +292,16 @@ The activity classes were selected based on data availability and as representat
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Plotting specified fingerprint image of molecule.</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">matplotlib.image</span> <span class="k">as</span> <span class="nn">mpimg</span>
-<span class="n">img</span> <span class="o">=</span> <span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">imgplot</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -513,23 +336,6 @@ The activity classes were selected based on data availability and as representat
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x_train</span><span class="p">,</span> <span class="n">x_valid</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">666</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Activity&#39;</span><span class="p">])</span>
 <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x_train</span><span class="p">,</span> <span class="s1">&#39;is_valid&#39;</span><span class="p">]</span><span class="o">=</span><span class="kc">False</span>
 <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x_valid</span><span class="p">,</span> <span class="s1">&#39;is_valid&#39;</span><span class="p">]</span><span class="o">=</span><span class="kc">True</span>
@@ -542,64 +348,12 @@ The activity classes were selected based on data availability and as representat
 </div>
     
 
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">is_valid</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>False    14352
-True      3589
-Name: is_valid, dtype: int64</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Create-dataloader">Create dataloader<a class="anchor-link" href="#Create-dataloader"> </a></h1>
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">fastai.vision.all</span> <span class="kn">import</span> <span class="o">*</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -708,45 +462,6 @@ Name: is_valid, dtype: int64</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">images</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;CID&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span>
-<span class="n">images</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0     CHEMBL188002.png
-1     CHEMBL364127.png
-2    CHEMBL1683469.png
-3      CHEMBL52564.png
-4      CHEMBL21427.png
-Name: CID, dtype: object</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBlock</span><span class="p">(</span>
     <span class="n">blocks</span> <span class="o">=</span> <span class="p">(</span><span class="n">ImageBlock</span><span class="p">(),</span> <span class="n">CategoryBlock</span><span class="p">()),</span> 
     <span class="n">get_x</span><span class="o">=</span><span class="n">ColReader</span><span class="p">(</span><span class="s1">&#39;Image&#39;</span><span class="p">,</span> <span class="n">pref</span><span class="o">=</span><span class="n">IMAGES</span><span class="p">),</span>
@@ -821,25 +536,6 @@ Name: CID, dtype: object</pre>
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">auc</span><span class="p">,</span><span class="n">roc_auc_score</span><span class="p">,</span><span class="n">recall_score</span><span class="p">,</span><span class="n">precision_score</span><span class="p">,</span><span class="n">f1_score</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">matthews_corrcoef</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1032,242 +728,6 @@ Finding learning rate...
   mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
 </pre>
 </div>
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span> <span class="o">=</span> <span class="n">train_model</span><span class="p">(</span><span class="n">dls</span><span class="p">,</span> <span class="n">arch</span><span class="o">=</span><span class="n">resnet34</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Training model on dataset: CHEMBL218_cl
-Architechture: &lt;function resnet34 at 0x7f6804345940&gt;
-Untrained epochs: freeze_epochs=5
-Trained epochs: epochs=6
-Finding learning rate...
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea ">
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Training model with learning rate: 0.012022644281387329
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea ">
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: left;">
-      <th>epoch</th>
-      <th>train_loss</th>
-      <th>valid_loss</th>
-      <th>accuracy</th>
-      <th>f1_score</th>
-      <th>precision_score</th>
-      <th>recall_score</th>
-      <th>roc_auc_score</th>
-      <th>matthews_corrcoef</th>
-      <th>time</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>0</td>
-      <td>0.325150</td>
-      <td>0.207611</td>
-      <td>0.923059</td>
-      <td>0.562500</td>
-      <td>0.584746</td>
-      <td>0.541885</td>
-      <td>0.900339</td>
-      <td>0.520840</td>
-      <td>00:40</td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>0.197992</td>
-      <td>0.160940</td>
-      <td>0.941219</td>
-      <td>0.620370</td>
-      <td>0.755639</td>
-      <td>0.526178</td>
-      <td>0.936084</td>
-      <td>0.600977</td>
-      <td>00:39</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>0.190611</td>
-      <td>0.155792</td>
-      <td>0.947670</td>
-      <td>0.683983</td>
-      <td>0.762058</td>
-      <td>0.620419</td>
-      <td>0.943579</td>
-      <td>0.659904</td>
-      <td>00:39</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>0.154270</td>
-      <td>0.132965</td>
-      <td>0.954839</td>
-      <td>0.732673</td>
-      <td>0.796923</td>
-      <td>0.678010</td>
-      <td>0.966055</td>
-      <td>0.710943</td>
-      <td>00:40</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>0.117002</td>
-      <td>0.126390</td>
-      <td>0.964397</td>
-      <td>0.791024</td>
-      <td>0.851964</td>
-      <td>0.738220</td>
-      <td>0.967272</td>
-      <td>0.774041</td>
-      <td>00:39</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-</div>
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea ">
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: left;">
-      <th>epoch</th>
-      <th>train_loss</th>
-      <th>valid_loss</th>
-      <th>accuracy</th>
-      <th>f1_score</th>
-      <th>precision_score</th>
-      <th>recall_score</th>
-      <th>roc_auc_score</th>
-      <th>matthews_corrcoef</th>
-      <th>time</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>0</td>
-      <td>0.129669</td>
-      <td>0.135288</td>
-      <td>0.957945</td>
-      <td>0.717042</td>
-      <td>0.929167</td>
-      <td>0.583770</td>
-      <td>0.971710</td>
-      <td>0.717578</td>
-      <td>00:50</td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>0.101529</td>
-      <td>0.184823</td>
-      <td>0.928315</td>
-      <td>0.678801</td>
-      <td>0.574275</td>
-      <td>0.829843</td>
-      <td>0.956202</td>
-      <td>0.653705</td>
-      <td>00:50</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>0.078848</td>
-      <td>0.101392</td>
-      <td>0.969654</td>
-      <td>0.813510</td>
-      <td>0.926421</td>
-      <td>0.725131</td>
-      <td>0.978313</td>
-      <td>0.804351</td>
-      <td>00:50</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>0.034458</td>
-      <td>0.080772</td>
-      <td>0.979450</td>
-      <td>0.886544</td>
-      <td>0.893617</td>
-      <td>0.879581</td>
-      <td>0.982232</td>
-      <td>0.875280</td>
-      <td>00:50</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>0.011494</td>
-      <td>0.096195</td>
-      <td>0.984229</td>
-      <td>0.911290</td>
-      <td>0.936464</td>
-      <td>0.887435</td>
-      <td>0.981222</td>
-      <td>0.903036</td>
-      <td>00:50</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>0.004576</td>
-      <td>0.094186</td>
-      <td>0.985424</td>
-      <td>0.917679</td>
-      <td>0.947075</td>
-      <td>0.890052</td>
-      <td>0.982487</td>
-      <td>0.910219</td>
-      <td>00:51</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
 </div>
 
 </div>
