@@ -24,6 +24,7 @@ In the blogpost you will find background information for the project as well as 
 
 
 #### Resources
-_All datasets and the paper that we have worked on trying out different methods and reproducing parts of can be found at: https://doi.org/10.1186/s13321-017-0226-y_  
+_All datasets and the paper that we have worked on trying out different methods and reproducing parts of can be found at:._  
+_https://doi.org/10.1186/s13321-017-0226-y_  
 _This blog is powered by [fastpages](https://github.com/fastai/fastpages)_  
 
