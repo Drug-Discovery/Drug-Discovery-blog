@@ -8,22 +8,20 @@ https://Drug-Discovery.github.io/Drug-Discovery-blog/
 
 # My Blog
 
+This is a blogpost is a part of our project in the course DAT255 Deep Learning at Western Norway University of applied science.
 
-_powered by [fastpages](https://github.com/fastai/fastpages)_
+In the blogpost you will find background information for the project as well as structured and commented notebooks as posts.
+
+### Background info
+
+![](images/backinfo.png)
 
 
-## What To Do Next?
+### Posts 
 
-Great!  You have setup your repo.  Now its time to start writing content.  Some helpful links:
+![](images/posts.png)
 
-- [Writing Blogs With Jupyter](https://github.com/fastai/fastpages#writing-blog-posts-with-jupyter)
 
-- [Writing Blogs With Markdown](https://github.com/fastai/fastpages#writing-blog-posts-with-markdown)
 
-- [Writing Blog Posts With Word](https://github.com/fastai/fastpages#writing-blog-posts-with-microsoft-word)
+_This blog is powered by [fastpages](https://github.com/fastai/fastpages)_
 
-- [(Optional) Preview Your Blog Locally](_fastpages_docs/DEVELOPMENT.md)
-
-Note: you may want to remove example blog posts from the `_posts`,  `_notebooks` or `_word` folders (but leave them empty, don't delete these folders) if you don't want these blog posts to appear on your site.
-
-Please use the [nbdev & blogging channel](https://forums.fast.ai/c/fastai-users/nbdev/48) in the fastai forums for any questions or feature requests.
