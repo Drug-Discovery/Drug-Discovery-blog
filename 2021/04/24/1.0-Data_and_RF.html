@@ -182,50 +182,6 @@ The activity classes were selected based on data availability and as representat
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The Morgan Fingerprint can also be displayed as an image:</p>
-
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">smile</span> <span class="o">=</span> <span class="s1">&#39;CNC(=O)[C@@H](NC(=O)N1C(=O)N(CCN2CCOCC2)c3ccccc13)C(C)(C)C&#39;</span>
-<span class="n">mol</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">smile</span><span class="p">)</span>
-<span class="n">Chem</span><span class="o">.</span><span class="n">SanitizeMol</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
-<span class="n">fp</span><span class="o">=</span><span class="n">AllChem</span><span class="o">.</span><span class="n">GetMorganFingerprintAsBitVect</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">nBits</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
-<span class="n">fp</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;rdkit.DataStructs.cDataStructs.ExplicitBitVect at 0x7f38d0978580&gt;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <p>We then define a method for converting the csv with smiles to also have the fingerprint stored as colums from ECFP_1 to ECFP_1024 for each row.</p>
 
 </div>
