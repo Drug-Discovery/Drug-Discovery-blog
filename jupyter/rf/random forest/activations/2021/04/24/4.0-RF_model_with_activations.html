@@ -77,7 +77,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      9 min read
+      3 min read
     
 </span></p>
 
@@ -270,16 +270,16 @@ The activity classes were selected based on data availability and as representat
       <td>0</td>
       <td>0</td>
       <td>...</td>
-      <td>-20.266380</td>
-      <td>-58.616051</td>
-      <td>-36.874432</td>
-      <td>-84.006630</td>
-      <td>-28.130043</td>
-      <td>-14.237524</td>
-      <td>-30.243919</td>
-      <td>-89.924866</td>
-      <td>-25.477444</td>
-      <td>-13.185804</td>
+      <td>98.090538</td>
+      <td>-40.475765</td>
+      <td>-55.758678</td>
+      <td>-40.196342</td>
+      <td>-21.565161</td>
+      <td>-39.386112</td>
+      <td>88.342987</td>
+      <td>-77.520561</td>
+      <td>30.948782</td>
+      <td>-48.423111</td>
     </tr>
     <tr>
       <th>1</th>
@@ -294,16 +294,16 @@ The activity classes were selected based on data availability and as representat
       <td>0</td>
       <td>0</td>
       <td>...</td>
-      <td>-27.719458</td>
-      <td>-79.247879</td>
-      <td>-71.388512</td>
-      <td>-117.074829</td>
-      <td>-87.031128</td>
-      <td>-25.362850</td>
-      <td>-91.691391</td>
-      <td>-97.514877</td>
-      <td>-159.834167</td>
-      <td>37.859943</td>
+      <td>105.425598</td>
+      <td>-53.179356</td>
+      <td>-1.957846</td>
+      <td>-152.047241</td>
+      <td>-124.394402</td>
+      <td>-114.585510</td>
+      <td>123.068222</td>
+      <td>-48.347355</td>
+      <td>94.419861</td>
+      <td>-130.973587</td>
     </tr>
     <tr>
       <th>2</th>
@@ -318,16 +318,16 @@ The activity classes were selected based on data availability and as representat
       <td>0</td>
       <td>0</td>
       <td>...</td>
-      <td>-27.371447</td>
-      <td>-91.037331</td>
-      <td>-82.402603</td>
-      <td>-140.058167</td>
-      <td>-110.499306</td>
-      <td>-35.576706</td>
-      <td>-118.137932</td>
-      <td>-114.797058</td>
-      <td>-210.545105</td>
-      <td>58.341396</td>
+      <td>102.208374</td>
+      <td>-64.332008</td>
+      <td>33.721348</td>
+      <td>-192.948685</td>
+      <td>-178.112000</td>
+      <td>-143.599503</td>
+      <td>147.062531</td>
+      <td>-47.969799</td>
+      <td>126.356018</td>
+      <td>-158.886963</td>
     </tr>
     <tr>
       <th>3</th>
@@ -342,16 +342,16 @@ The activity classes were selected based on data availability and as representat
       <td>0</td>
       <td>0</td>
       <td>...</td>
-      <td>-12.962411</td>
-      <td>-65.378036</td>
-      <td>-52.445572</td>
-      <td>-105.202003</td>
-      <td>-54.042187</td>
-      <td>-23.038553</td>
-      <td>-45.937416</td>
-      <td>-107.758331</td>
-      <td>-74.264862</td>
-      <td>15.236348</td>
+      <td>105.915039</td>
+      <td>-39.527615</td>
+      <td>-23.374825</td>
+      <td>-81.049446</td>
+      <td>-53.409107</td>
+      <td>-57.353622</td>
+      <td>98.793694</td>
+      <td>-46.956039</td>
+      <td>50.408783</td>
+      <td>-67.285126</td>
     </tr>
     <tr>
       <th>4</th>
@@ -366,16 +366,16 @@ The activity classes were selected based on data availability and as representat
       <td>0</td>
       <td>0</td>
       <td>...</td>
-      <td>-14.881062</td>
-      <td>-61.484863</td>
-      <td>-52.275417</td>
-      <td>-100.329498</td>
-      <td>-55.440769</td>
-      <td>-24.665730</td>
-      <td>-48.966393</td>
-      <td>-98.103355</td>
-      <td>-83.055305</td>
-      <td>20.628500</td>
+      <td>127.697937</td>
+      <td>-41.359352</td>
+      <td>-46.951527</td>
+      <td>-80.075348</td>
+      <td>-57.078045</td>
+      <td>-62.758518</td>
+      <td>107.616997</td>
+      <td>-67.371101</td>
+      <td>54.477600</td>
+      <td>-71.601402</td>
     </tr>
   </tbody>
 </table>
@@ -512,12 +512,12 @@ The activity classes were selected based on data availability and as representat
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">setting</span> <span class="ow">in</span> <span class="n">param_grid</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Testing combination: </span><span class="si">{</span><span class="n">setting</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="c1"># Crossval using split from earlier</span>
+    
     
     <span class="n">aucs</span><span class="p">,</span> <span class="n">accs</span><span class="p">,</span> <span class="n">mccs</span><span class="p">,</span> <span class="n">recalls</span><span class="p">,</span> <span class="n">precs</span><span class="p">,</span> <span class="n">f1_scores</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
    
         
-    <span class="n">auc</span><span class="p">,</span><span class="n">acc2</span><span class="p">,</span><span class="n">mcc</span><span class="p">,</span><span class="n">recall</span><span class="p">,</span><span class="n">precision</span><span class="p">,</span><span class="n">F1_score</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">train_rf</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> 
+    <span class="n">auc</span><span class="p">,</span><span class="n">acc2</span><span class="p">,</span><span class="n">mcc</span><span class="p">,</span><span class="n">recall</span><span class="p">,</span><span class="n">precision</span><span class="p">,</span><span class="n">F1_score</span> <span class="o">=</span> <span class="n">train_rf</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> 
                                                              <span class="n">n_estimators</span><span class="o">=</span><span class="n">setting</span><span class="p">[</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">],</span> 
                                                              <span class="n">criterion</span><span class="o">=</span><span class="n">setting</span><span class="p">[</span><span class="s1">&#39;criterion&#39;</span><span class="p">],</span>
                                                              <span class="n">max_features</span><span class="o">=</span><span class="n">setting</span><span class="p">[</span><span class="s1">&#39;max_features&#39;</span><span class="p">])</span>
@@ -529,13 +529,9 @@ The activity classes were selected based on data availability and as representat
     <span class="n">recalls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recall</span><span class="p">)</span>
     <span class="n">precs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">precision</span><span class="p">)</span>
     <span class="n">f1_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">F1_score</span><span class="p">)</span>
-        
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average ROCAUC of the folds: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">aucs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average accuracy of the folds: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">accs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average Matthews correlation of the folds: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mccs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average recall of the folds: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">recalls</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average precision of the folds: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">precs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average f1 score of the folds: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">f1_scores</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average Matthews correlation: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mccs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+   
     <span class="nb">print</span><span class="p">()</span>
 </pre></div>
 
@@ -550,244 +546,76 @@ The activity classes were selected based on data availability and as representat
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 10}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.969287316446932
-Average accuracy of the folds: 0.9654480606330806
-Average Matthews correlation of the folds: 0.7758973576847494
-Average recall of the folds: 0.7083333333333334
-Average precision of the folds: 0.8892307692307693
-Average f1 score of the folds: 0.7885402455661664
+Average Matthews correlation: 0.8135612528114817
 
 Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 50}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9824122022521613
-Average accuracy of the folds: 0.9707980383415069
-Average Matthews correlation of the folds: 0.8138302537014964
-Average recall of the folds: 0.7647058823529411
-Average precision of the folds: 0.899135446685879
-Average f1 score of the folds: 0.8264900662251655
+Average Matthews correlation: 0.808070667802557
 
 Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 100}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9849031508140285
-Average accuracy of the folds: 0.9707980383415069
-Average Matthews correlation of the folds: 0.8145363334143343
-Average recall of the folds: 0.7720588235294118
-Average precision of the folds: 0.8923512747875354
-Average f1 score of the folds: 0.8278580814717477
+Average Matthews correlation: 0.8057158482003463
 
 Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 200}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9869180874900229
-Average accuracy of the folds: 0.9716897012929113
-Average Matthews correlation of the folds: 0.8207683870383751
-Average recall of the folds: 0.7818627450980392
-Average precision of the folds: 0.8935574229691877
-Average f1 score of the folds: 0.8339869281045752
+Average Matthews correlation: 0.8057158482003463
 
 Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 300}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9878830333015993
-Average accuracy of the folds: 0.9705751226036559
-Average Matthews correlation of the folds: 0.813738649403107
-Average recall of the folds: 0.7769607843137255
-Average precision of the folds: 0.8854748603351955
-Average f1 score of the folds: 0.8276762402088773
+Average Matthews correlation: 0.8033780300912903
 
 Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 700}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9874289588321842
-Average accuracy of the folds: 0.971020954079358
-Average Matthews correlation of the folds: 0.8168598577517443
-Average recall of the folds: 0.7818627450980392
-Average precision of the folds: 0.8861111111111111
-Average f1 score of the folds: 0.8307291666666667
+Average Matthews correlation: 0.8057158482003463
 
 Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 10}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9693771697006415
-Average accuracy of the folds: 0.9667855550601873
-Average Matthews correlation of the folds: 0.7883133489239316
-Average recall of the folds: 0.7475490196078431
-Average precision of the folds: 0.8689458689458689
-Average f1 score of the folds: 0.8036890645586298
+Average Matthews correlation: 0.8085109587994693
 
 Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 50}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.979355388550712
-Average accuracy of the folds: 0.971020954079358
-Average Matthews correlation of the folds: 0.819467316637404
-Average recall of the folds: 0.803921568627451
-Average precision of the folds: 0.8677248677248677
-Average f1 score of the folds: 0.8346055979643766
+Average Matthews correlation: 0.8084548331984114
 
 Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 100}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9788907961418998
-Average accuracy of the folds: 0.9712438698172091
-Average Matthews correlation of the folds: 0.8213359427559646
-Average recall of the folds: 0.8088235294117647
-Average precision of the folds: 0.8661417322834646
-Average f1 score of the folds: 0.8365019011406843
+Average Matthews correlation: 0.8108159603070193
 
 Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 200}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9808979194914847
-Average accuracy of the folds: 0.9725813642443156
-Average Matthews correlation of the folds: 0.8302884421519848
-Average recall of the folds: 0.821078431372549
-Average precision of the folds: 0.8701298701298701
-Average f1 score of the folds: 0.8448928121059268
+Average Matthews correlation: 0.8088434851265638
 
 Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 300}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9810433675677236
-Average accuracy of the folds: 0.9728042799821668
-Average Matthews correlation of the folds: 0.8315195254325867
-Average recall of the folds: 0.821078431372549
-Average precision of the folds: 0.8723958333333334
-Average f1 score of the folds: 0.845959595959596
+Average Matthews correlation: 0.808070667802557
 
 Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 700}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9809562189270018
-Average accuracy of the folds: 0.9728042799821668
-Average Matthews correlation of the folds: 0.8315195254325867
-Average recall of the folds: 0.821078431372549
-Average precision of the folds: 0.8723958333333334
-Average f1 score of the folds: 0.845959595959596
+Average Matthews correlation: 0.8068911193845247
 
 Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 10}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9703910990585543
-Average accuracy of the folds: 0.9676772180115916
-Average Matthews correlation of the folds: 0.7919589190669805
-Average recall of the folds: 0.7328431372549019
-Average precision of the folds: 0.8925373134328358
-Average f1 score of the folds: 0.8048452220726784
+Average Matthews correlation: 0.8115762126442005
 
 Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 50}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9832452230524382
-Average accuracy of the folds: 0.971020954079358
-Average Matthews correlation of the folds: 0.81712633693644
-Average recall of the folds: 0.7843137254901961
-Average precision of the folds: 0.8839779005524862
-Average f1 score of the folds: 0.8311688311688311
+Average Matthews correlation: 0.8084548331984114
 
 Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 100}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9870629345411535
-Average accuracy of the folds: 0.9714667855550602
-Average Matthews correlation of the folds: 0.8202380683239205
-Average recall of the folds: 0.7892156862745098
-Average precision of the folds: 0.8846153846153846
-Average f1 score of the folds: 0.8341968911917099
+Average Matthews correlation: 0.8068911193845247
 
 Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 200}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9888071094058025
-Average accuracy of the folds: 0.9716897012929113
-Average Matthews correlation of the folds: 0.8220616199764084
-Average recall of the folds: 0.7941176470588235
-Average precision of the folds: 0.8828337874659401
-Average f1 score of the folds: 0.8361290322580645
+Average Matthews correlation: 0.8084548331984114
 
 Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 300}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9886562521035879
-Average accuracy of the folds: 0.9714667855550602
-Average Matthews correlation of the folds: 0.8199727109343596
-Average recall of the folds: 0.7867647058823529
-Average precision of the folds: 0.8867403314917127
-Average f1 score of the folds: 0.8337662337662338
+Average Matthews correlation: 0.8072806773744206
 
 Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 700}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9891295593764726
-Average accuracy of the folds: 0.9719126170307624
-Average Matthews correlation of the folds: 0.8230773003911601
-Average recall of the folds: 0.7916666666666666
-Average precision of the folds: 0.8873626373626373
-Average f1 score of the folds: 0.8367875647668395
+Average Matthews correlation: 0.8072806773744206
 
 Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 10}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.969766934483455
-Average accuracy of the folds: 0.9692376281765492
-Average Matthews correlation of the folds: 0.806348658128795
-Average recall of the folds: 0.7794117647058824
-Average precision of the folds: 0.8688524590163934
-Average f1 score of the folds: 0.8217054263565892
+Average Matthews correlation: 0.801009124961741
 
 Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 50}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.980438736308648
-Average accuracy of the folds: 0.971020954079358
-Average Matthews correlation of the folds: 0.8197847830610261
-Average recall of the folds: 0.8063725490196079
-Average precision of the folds: 0.8657894736842106
-Average f1 score of the folds: 0.8350253807106599
+Average Matthews correlation: 0.8084548331984114
 
 Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 100}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9843129441575551
-Average accuracy of the folds: 0.9723584485064646
-Average Matthews correlation of the folds: 0.8281374576264476
-Average recall of the folds: 0.8137254901960784
-Average precision of the folds: 0.8736842105263158
-Average f1 score of the folds: 0.8426395939086295
+Average Matthews correlation: 0.8084548331984114
 
 Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 200}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.983894029656983
-Average accuracy of the folds: 0.9728042799821668
-Average Matthews correlation of the folds: 0.8318264482528194
-Average recall of the folds: 0.8235294117647058
-Average precision of the folds: 0.8704663212435233
-Average f1 score of the folds: 0.8463476070528967
+Average Matthews correlation: 0.8068911193845247
 
 Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 300}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9859011530065681
-Average accuracy of the folds: 0.9725813642443156
-Average Matthews correlation of the folds: 0.8302884421519848
-Average recall of the folds: 0.821078431372549
-Average precision of the folds: 0.8701298701298701
-Average f1 score of the folds: 0.8448928121059268
+Average Matthews correlation: 0.8068911193845247
 
 Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 700}
-Training on 1024 feature
-
-Average ROCAUC of the folds: 0.9858735058515805
-Average accuracy of the folds: 0.9725813642443156
-Average Matthews correlation of the folds: 0.8299808932166253
-Average recall of the folds: 0.8186274509803921
-Average precision of the folds: 0.8720626631853786
-Average f1 score of the folds: 0.8445006321112516
+Average Matthews correlation: 0.8084548331984114
 
 </pre>
 </div>
@@ -828,7 +656,7 @@ Average f1 score of the folds: 0.8445006321112516
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.8299808932166253</pre>
+<pre>0.8076599473510552</pre>
 </div>
 
 </div>
@@ -846,10 +674,26 @@ Average f1 score of the folds: 0.8445006321112516
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">MCC</span><span class="p">),</span> <span class="n">top_mcc_scores</span><span class="p">(</span><span class="s1">&#39;CHEMBL_205&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">MCC</span><span class="p">),</span> <span class="n">top_mcc_scores</span><span class="p">[</span><span class="s1">&#39;CHEMBL205&#39;</span><span class="p">]</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(0.8135612528114817, 0.862)</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 

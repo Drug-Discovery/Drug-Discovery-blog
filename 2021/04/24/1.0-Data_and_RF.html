@@ -77,7 +77,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      4 min read
+      11 min read
     
 </span></p>
 
@@ -205,6 +205,22 @@ The activity classes were selected based on data availability and as representat
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;rdkit.DataStructs.cDataStructs.ExplicitBitVect at 0x7f38d0978580&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
     
 
@@ -309,25 +325,6 @@ The activity classes were selected based on data availability and as representat
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-9-dac3d8b86b4e&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>df <span class="ansi-blue-fg">=</span> pd<span class="ansi-blue-fg">.</span>read_csv<span class="ansi-blue-fg">(</span>path<span class="ansi-blue-fg">/</span><span class="ansi-blue-fg">f&#39;{dataset}_ecfp_1024.csv&#39;</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">NameError</span>: name &#39;path&#39; is not defined</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -350,15 +347,176 @@ The activity classes were selected based on data availability and as representat
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-3-c42a15b2c7cf&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>df<span class="ansi-blue-fg">.</span>head<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;df&#39; is not defined</pre>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CID</th>
+      <th>SMILES</th>
+      <th>Activity</th>
+      <th>ECFP4_1</th>
+      <th>ECFP4_2</th>
+      <th>ECFP4_3</th>
+      <th>ECFP4_4</th>
+      <th>ECFP4_5</th>
+      <th>ECFP4_6</th>
+      <th>ECFP4_7</th>
+      <th>...</th>
+      <th>ECFP4_1015</th>
+      <th>ECFP4_1016</th>
+      <th>ECFP4_1017</th>
+      <th>ECFP4_1018</th>
+      <th>ECFP4_1019</th>
+      <th>ECFP4_1020</th>
+      <th>ECFP4_1021</th>
+      <th>ECFP4_1022</th>
+      <th>ECFP4_1023</th>
+      <th>ECFP4_1024</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>CHEMBL188002</td>
+      <td>S(=O)(=O)(N)c1cc(N/C(/S)=N\c2cc(C(=O)[O-])c(cc...</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>CHEMBL364127</td>
+      <td>Clc1ccc(cc1)C(=O)NC1Cc2cc(S(=O)(=O)N)ccc2C1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>CHEMBL1683469</td>
+      <td>S(=O)(=O)(N)c1ccc(cc1)CNS(=O)(=O)CC12CCC(CC1=O...</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>CHEMBL52564</td>
+      <td>Oc1ccccc1\C=C\C(=O)[O-]</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>CHEMBL21427</td>
+      <td>OB(O)c1ccc(OC)cc1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 1027 columns</p>
 </div>
+</div>
+
 </div>
 
 </div>
@@ -386,14 +544,13 @@ The activity classes were selected based on data availability and as representat
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-1-a74c58233b9e&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>df<span class="ansi-blue-fg">.</span>info<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">NameError</span>: name &#39;df&#39; is not defined</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 17941 entries, 0 to 17940
+Columns: 1027 entries, CID to ECFP4_1024
+dtypes: int64(1025), object(2)
+memory usage: 140.6+ MB
+</pre>
 </div>
 </div>
 
@@ -598,16 +755,12 @@ The activity classes were selected based on data availability and as representat
    
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">):</span>
     
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cross validation iteration: </span><span class="si">{</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    
         <span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
         <span class="n">X_valid</span> <span class="o">=</span> <span class="n">X_valid_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
         <span class="n">y_train</span> <span class="o">=</span> <span class="n">y_train_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
         <span class="n">y_valid</span> <span class="o">=</span> <span class="n">y_valid_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
     
-        <span class="n">auc</span><span class="p">,</span><span class="n">acc2</span><span class="p">,</span><span class="n">mcc</span><span class="p">,</span><span class="n">Recall</span><span class="p">,</span><span class="n">Precision</span><span class="p">,</span><span class="n">F1_score</span> <span class="o">=</span> <span class="n">train_rf</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> 
-                                                      <span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">,</span> <span class="n">max_features</span><span class="o">=</span><span class="s1">&#39;sqrt&#39;</span><span class="p">)</span> 
-        <span class="n">auc</span><span class="p">,</span><span class="n">acc2</span><span class="p">,</span><span class="n">mcc</span><span class="p">,</span><span class="n">recall</span><span class="p">,</span><span class="n">precision</span><span class="p">,</span><span class="n">F1_score</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">train_rf</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> 
+        <span class="n">auc</span><span class="p">,</span><span class="n">acc2</span><span class="p">,</span><span class="n">mcc</span><span class="p">,</span><span class="n">recall</span><span class="p">,</span><span class="n">precision</span><span class="p">,</span><span class="n">F1_score</span> <span class="o">=</span> <span class="n">train_rf</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> 
                                                              <span class="n">n_estimators</span><span class="o">=</span><span class="n">setting</span><span class="p">[</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">],</span> 
                                                              <span class="n">criterion</span><span class="o">=</span><span class="n">setting</span><span class="p">[</span><span class="s1">&#39;criterion&#39;</span><span class="p">],</span>
                                                              <span class="n">max_features</span><span class="o">=</span><span class="n">setting</span><span class="p">[</span><span class="s1">&#39;max_features&#39;</span><span class="p">])</span>
@@ -629,6 +782,211 @@ The activity classes were selected based on data availability and as representat
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 10}
+Average ROCAUC of the folds: 0.9772882110994567
+Average accuracy of the folds: 0.9667270447262087
+Average Matthews correlation of the folds: 0.7860500038292063
+Average recall of the folds: 0.7372307692307694
+Average precision of the folds: 0.8760069960166821
+Average f1 score of the folds: 0.800503358063245
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 50}
+Average ROCAUC of the folds: 0.9883235554088932
+Average accuracy of the folds: 0.9716316009474711
+Average Matthews correlation of the folds: 0.8209589646616985
+Average recall of the folds: 0.7926153846153847
+Average precision of the folds: 0.8822409748917097
+Average f1 score of the folds: 0.83500841879966
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 100}
+Average ROCAUC of the folds: 0.9897701382423307
+Average accuracy of the folds: 0.971743068134318
+Average Matthews correlation of the folds: 0.8215468433293995
+Average recall of the folds: 0.7923076923076924
+Average precision of the folds: 0.883681362094854
+Average f1 score of the folds: 0.8354713493040207
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 200}
+Average ROCAUC of the folds: 0.9903762124194175
+Average accuracy of the folds: 0.9720774696948584
+Average Matthews correlation of the folds: 0.8238100152984001
+Average recall of the folds: 0.7953846153846154
+Average precision of the folds: 0.8846597606510033
+Average f1 score of the folds: 0.8376368086620165
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 300}
+Average ROCAUC of the folds: 0.9905535114494821
+Average accuracy of the folds: 0.9722168036784172
+Average Matthews correlation of the folds: 0.8249672684508293
+Average recall of the folds: 0.7984615384615384
+Average precision of the folds: 0.8835781774076714
+Average f1 score of the folds: 0.838854526090383
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 700}
+Average ROCAUC of the folds: 0.9908532604212089
+Average accuracy of the folds: 0.9721889368817054
+Average Matthews correlation of the folds: 0.8248672775803916
+Average recall of the folds: 0.7990769230769231
+Average precision of the folds: 0.8827487938727472
+Average f1 score of the folds: 0.8388064256004263
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 10}
+Average ROCAUC of the folds: 0.9772568148872729
+Average accuracy of the folds: 0.9685941201058939
+Average Matthews correlation of the folds: 0.801694981605307
+Average recall of the folds: 0.7766153846153846
+Average precision of the folds: 0.8629193877802063
+Average f1 score of the folds: 0.8174913388674341
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 50}
+Average ROCAUC of the folds: 0.9871096392499794
+Average accuracy of the folds: 0.9709627978263897
+Average Matthews correlation of the folds: 0.8197484029807942
+Average recall of the folds: 0.812923076923077
+Average precision of the folds: 0.858933897696472
+Average f1 score of the folds: 0.8352657808393531
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 100}
+Average ROCAUC of the folds: 0.9887458721759319
+Average accuracy of the folds: 0.9715758673540476
+Average Matthews correlation of the folds: 0.8238137649341255
+Average recall of the folds: 0.818153846153846
+Average precision of the folds: 0.8610968655939681
+Average f1 score of the folds: 0.8390530575198107
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 200}
+Average ROCAUC of the folds: 0.9888152879753923
+Average accuracy of the folds: 0.9723840044586873
+Average Matthews correlation of the folds: 0.8289251494410698
+Average recall of the folds: 0.8233846153846155
+Average precision of the folds: 0.8651762364626471
+Average f1 score of the folds: 0.8437446620112299
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 300}
+Average ROCAUC of the folds: 0.9891161447714228
+Average accuracy of the folds: 0.9723561376619756
+Average Matthews correlation of the folds: 0.828566538703412
+Average recall of the folds: 0.821846153846154
+Average precision of the folds: 0.8660686746587011
+Average f1 score of the folds: 0.843364299633399
+
+Testing combination: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 700}
+Average ROCAUC of the folds: 0.9894152101919836
+Average accuracy of the folds: 0.9724397380521109
+Average Matthews correlation of the folds: 0.829156614702144
+Average recall of the folds: 0.8227692307692308
+Average precision of the folds: 0.8662129059726817
+Average f1 score of the folds: 0.8439271211097632
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 10}
+Average ROCAUC of the folds: 0.9804304486688429
+Average accuracy of the folds: 0.9679253169848125
+Average Matthews correlation of the folds: 0.7937533455572263
+Average recall of the folds: 0.7427692307692307
+Average precision of the folds: 0.8846853049526121
+Average f1 score of the folds: 0.8074645155199276
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 50}
+Average ROCAUC of the folds: 0.9900928922464084
+Average accuracy of the folds: 0.971854535321165
+Average Matthews correlation of the folds: 0.822328710871904
+Average recall of the folds: 0.7935384615384615
+Average precision of the folds: 0.8838282161189858
+Average f1 score of the folds: 0.8362435918877612
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 100}
+Average ROCAUC of the folds: 0.9905116969746969
+Average accuracy of the folds: 0.9718266685244531
+Average Matthews correlation of the folds: 0.8221385357433695
+Average recall of the folds: 0.7932307692307692
+Average precision of the folds: 0.8838186927317839
+Average f1 score of the folds: 0.8360435636998712
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 200}
+Average ROCAUC of the folds: 0.9910789501596916
+Average accuracy of the folds: 0.9724118712553992
+Average Matthews correlation of the folds: 0.8262529644111316
+Average recall of the folds: 0.8
+Average precision of the folds: 0.8843894471999943
+Average f1 score of the folds: 0.8400419434408519
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 300}
+Average ROCAUC of the folds: 0.9911039115626217
+Average accuracy of the folds: 0.9723561376619758
+Average Matthews correlation of the folds: 0.8261580994481952
+Average recall of the folds: 0.8018461538461539
+Average precision of the folds: 0.8822698543953127
+Average f1 score of the folds: 0.8400967620207005
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;n_estimators&#39;: 700}
+Average ROCAUC of the folds: 0.9911414361645707
+Average accuracy of the folds: 0.9723840044586876
+Average Matthews correlation of the folds: 0.8264496010081249
+Average recall of the folds: 0.803076923076923
+Average precision of the folds: 0.8815263060754923
+Average f1 score of the folds: 0.8404267804418
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 10}
+Average ROCAUC of the folds: 0.9792251593970607
+Average accuracy of the folds: 0.9692350564302632
+Average Matthews correlation of the folds: 0.8064290801915908
+Average recall of the folds: 0.7849230769230768
+Average precision of the folds: 0.8631094931906522
+Average f1 score of the folds: 0.8221043342025652
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 50}
+Average ROCAUC of the folds: 0.9888097959953329
+Average accuracy of the folds: 0.9719938693047233
+Average Matthews correlation of the folds: 0.826327019013666
+Average recall of the folds: 0.8196923076923076
+Average precision of the folds: 0.8641589152909088
+Average f1 score of the folds: 0.841309602980508
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 100}
+Average ROCAUC of the folds: 0.9898620405180847
+Average accuracy of the folds: 0.9724118712553992
+Average Matthews correlation of the folds: 0.8292029075535048
+Average recall of the folds: 0.8243076923076924
+Average precision of the folds: 0.8647413354240697
+Average f1 score of the folds: 0.8440388779058366
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 200}
+Average ROCAUC of the folds: 0.9899568655643423
+Average accuracy of the folds: 0.9726348056290929
+Average Matthews correlation of the folds: 0.8306298858661861
+Average recall of the folds: 0.8258461538461539
+Average precision of the folds: 0.865803297784208
+Average f1 score of the folds: 0.8453519472560641
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 300}
+Average ROCAUC of the folds: 0.9901267869559582
+Average accuracy of the folds: 0.9724118712553992
+Average Matthews correlation of the folds: 0.8293221619482496
+Average recall of the folds: 0.8252307692307692
+Average precision of the folds: 0.8640346330095527
+Average f1 score of the folds: 0.8441788146153677
+
+Testing combination: {&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;n_estimators&#39;: 700}
+Average ROCAUC of the folds: 0.9903818693945858
+Average accuracy of the folds: 0.9726626724258047
+Average Matthews correlation of the folds: 0.8309066881967601
+Average recall of the folds: 0.8267692307692307
+Average precision of the folds: 0.8653842324791043
+Average f1 score of the folds: 0.8456313021672045
+
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -677,7 +1035,7 @@ The activity classes were selected based on data availability and as representat
     <span class="n">y_valid</span> <span class="o">=</span> <span class="n">y_valid_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
     
     <span class="n">auc</span><span class="p">,</span><span class="n">acc2</span><span class="p">,</span><span class="n">mcc</span><span class="p">,</span><span class="n">Recall</span><span class="p">,</span><span class="n">Precision</span><span class="p">,</span><span class="n">F1_score</span> <span class="o">=</span> <span class="n">train_rf</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> 
-                                                      <span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">,</span> <span class="n">max_features</span><span class="o">=</span><span class="s1">&#39;sqrt&#39;</span><span class="p">)</span>
+                                                      <span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">,</span> <span class="n">max_features</span><span class="o">=</span><span class="s1">&#39;sqrt&#39;</span><span class="p">)</span>
     <span class="n">MCC</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mcc</span><span class="p">)</span>
     
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;AUC score:</span><span class="si">{</span><span class="n">auc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -700,44 +1058,44 @@ The activity classes were selected based on data availability and as representat
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Cross validation iteration: 1
-AUC score:0.9887427620260744
-Accuracy: 0.9730608453320948
-Matthews: 0.8415714713449818
-Recall: 0.8564356435643564
-Precision: 0.8564356435643564
-F1 score: 0.8564356435643564
+AUC score:0.9895547345611034
+Accuracy: 0.9716674407803065
+Matthews: 0.8322885854488427
+Recall: 0.8415841584158416
+Precision: 0.8542713567839196
+F1 score: 0.8478802992518704
 
 Cross validation iteration: 2
-AUC score:0.9876712143359863
-Accuracy: 0.9781699953553181
-Matthews: 0.8608807076715227
-Recall: 0.8563829787234043
-Precision: 0.8895027624309392
-F1 score: 0.8726287262872627
+AUC score:0.9881408694710627
+Accuracy: 0.9772410589874594
+Matthews: 0.8543605077494866
+Recall: 0.8457446808510638
+Precision: 0.888268156424581
+F1 score: 0.8664850136239782
 
 Cross validation iteration: 3
-AUC score:0.9909322903664254
-Accuracy: 0.9712029725963771
-Matthews: 0.8122047591950275
-Recall: 0.8142076502732241
-Precision: 0.8418079096045198
-F1 score: 0.8277777777777778
+AUC score:0.99115142437103
+Accuracy: 0.972131908964236
+Matthews: 0.8182680063069008
+Recall: 0.819672131147541
+Precision: 0.847457627118644
+F1 score: 0.8333333333333333
 
 Cross validation iteration: 4
-AUC score:0.9754214676396435
-Accuracy: 0.9693450998606595
-Matthews: 0.8300350847464447
+AUC score:0.9761998796790828
+Accuracy: 0.9684161634928008
+Matthews: 0.8252479636345342
 Recall: 0.7964601769911505
-Precision: 0.9
-F1 score: 0.8450704225352113
+Precision: 0.8910891089108911
+F1 score: 0.8411214953271028
 
 Cross validation iteration: 5
-AUC score:0.9912994366040052
-Accuracy: 0.9753717472118959
-Matthews: 0.8390326671715927
-Recall: 0.8406593406593407
-Precision: 0.864406779661017
-F1 score: 0.8523676880222841
+AUC score:0.992038545211134
+Accuracy: 0.9763011152416357
+Matthews: 0.8437545323349981
+Recall: 0.8351648351648352
+Precision: 0.8786127167630058
+F1 score: 0.8563380281690139
 
 </pre>
 </div>
@@ -760,6 +1118,22 @@ F1 score: 0.8523676880222841
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(0.8360720667107868, 0.862)</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
