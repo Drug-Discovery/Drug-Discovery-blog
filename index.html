@@ -88,6 +88,11 @@ J Cheminform 9, 42 (2017). <a href="https://doi.org/10.1186/s13321-017-0226-y">B
 
 <h2 id="results">Results</h2>
 
+<p>The article focuses on MCC as a metric to measure and compare performance between models.  For our non-neural model the results were as expected. We got an average MCC of 0.836 with the best settings and with a 5-fold cross validation on our 1024 bit ECFP on the Carbonic Anhydrase II(ChEMBL205) dataset, where as the top average score was 0.862 on the DNN model from the article. 
+For our CNN model, the results were actually better than first expected. We got the best performance and efficiency by first doing 5 untrained epochs and then 5 fine tuned epochs on the pretrained resnet18 convolutional neural network(CNN). This gave us a score of 0.832 MCC, almost the same as for the Random Forest model. 
+The last model had the ECFP fingerprint and the activations from our CNN model. Here the results were a bit worse than expected. With trying the different settings as in the first model, we got a max MCC of 0.813 from the best performing settings from the article. 
+For further development, one options would be to try different hyper parameters and different models to try to better the results. Another option is to try data augmentation on the images in our datablock on the CNN model and see if the results get better. A different pretrained model could also work as we got slightly better results with a resnet34 network.</p>
+
 <p>Resources: <br />
 “Drug development process model”: Br J Pharmacol 2011 Mar, Principles of early drug discovery, <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3058157/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3058157/</a>.</p>
 
